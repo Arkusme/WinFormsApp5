@@ -30,8 +30,9 @@
         {
             LoginButton = new Button();
             userNameTextBox = new TextBox();
-            radioButtonUser = new RadioButton();
-            radioButtonAdmin = new RadioButton();
+            passwordTextBox = new TextBox();
+            label2 = new Label();
+            label3 = new Label();
             SuspendLayout();
             // 
             // LoginButton
@@ -40,47 +41,50 @@
             LoginButton.Name = "LoginButton";
             LoginButton.Size = new Size(115, 42);
             LoginButton.TabIndex = 1;
-            LoginButton.Text = "LOGIN";
+            LoginButton.Text = "Вход";
             LoginButton.UseVisualStyleBackColor = true;
             LoginButton.Click += button1_Click;
             // 
             // userNameTextBox
             // 
-            userNameTextBox.Location = new Point(252, 214);
+            userNameTextBox.Location = new Point(252, 131);
             userNameTextBox.Name = "userNameTextBox";
             userNameTextBox.Size = new Size(308, 23);
             userNameTextBox.TabIndex = 3;
             // 
-            // radioButtonUser
+            // passwordTextBox
             // 
-            radioButtonUser.AutoSize = true;
-            radioButtonUser.Location = new Point(252, 189);
-            radioButtonUser.Name = "radioButtonUser";
-            radioButtonUser.RightToLeft = RightToLeft.No;
-            radioButtonUser.Size = new Size(102, 19);
-            radioButtonUser.TabIndex = 4;
-            radioButtonUser.TabStop = true;
-            radioButtonUser.Text = "Пользователь";
-            radioButtonUser.UseVisualStyleBackColor = true;
+            passwordTextBox.Location = new Point(252, 187);
+            passwordTextBox.Name = "passwordTextBox";
+            passwordTextBox.Size = new Size(308, 23);
+            passwordTextBox.TabIndex = 4;
             // 
-            // radioButtonAdmin
+            // label2
             // 
-            radioButtonAdmin.AutoSize = true;
-            radioButtonAdmin.Location = new Point(448, 189);
-            radioButtonAdmin.Name = "radioButtonAdmin";
-            radioButtonAdmin.Size = new Size(112, 19);
-            radioButtonAdmin.TabIndex = 5;
-            radioButtonAdmin.TabStop = true;
-            radioButtonAdmin.Text = "Администратор";
-            radioButtonAdmin.UseVisualStyleBackColor = true;
+            label2.AutoSize = true;
+            label2.Location = new Point(387, 113);
+            label2.Name = "label2";
+            label2.Size = new Size(37, 15);
+            label2.TabIndex = 5;
+            label2.Text = "Login";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(377, 169);
+            label3.Name = "label3";
+            label3.Size = new Size(57, 15);
+            label3.TabIndex = 6;
+            label3.Text = "Password";
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(radioButtonAdmin);
-            Controls.Add(radioButtonUser);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(passwordTextBox);
             Controls.Add(userNameTextBox);
             Controls.Add(LoginButton);
             Name = "Form2";
@@ -94,8 +98,9 @@
         private Label label1;
         private Button LoginButton;
         private TextBox userNameTextBox;
-        private RadioButton radioButtonUser;
-        private RadioButton radioButtonAdmin;
         private TextBox userIdTextBox;
+        private TextBox passwordTextBox;
+        private Label label2;
+        private Label label3;
     }
 }

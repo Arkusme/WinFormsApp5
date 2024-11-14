@@ -21,28 +21,25 @@ namespace WinFormsApp5
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string userName = userNameTextBox.Text;
+            string password = passwordTextBox.Text;
+            if (userName == "user" && password == "")
             {
-                string userName = userNameTextBox.Text;
-
-                if (radioButtonUser.Checked)
-                {
-                    // Если выбран пользователь, открываем форму пользователя без возможности видеть сотрудников
-                    Form1 userForm = new Form1();
-                    userForm.Show();
-                }
-                else if (radioButtonAdmin.Checked)
-                {
-                    // Если выбран администратор, открываем форму администратора
-                    Form1 adminForm = new Form1();
-                    adminForm.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Выберите роль: Пользователь или Администратор.");
-                }
-
-                this.Hide(); // Скрываем текущую форму после открытия нужной
+                Form1 userForm = new Form1();
+                userForm.Show(); 
+                this.Hide();
             }
-        }        
+            else if (userName == "admin" && password == "admin")
+            {
+                Form1 adminForm = new Form1();
+                adminForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Неверный логин или пароль.");
+            }       
+            
+        }
     }
 }
