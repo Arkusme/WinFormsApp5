@@ -63,6 +63,19 @@ namespace WinFormsApp5
             violationAdapter.Fill(violationTable);
             violationsDataGridView.DataSource = violationTable;
         }
+        public class Driver
+        {
+            public int Id { get; set; }
+            public string LastName { get; set; }
+            public string FirstName { get; set; }
+            public string MiddleName { get; set; }
+            public string PassportNumber { get; set; }
+            public string Phone { get; set; }
+            public string Address { get; set; }
+            public string CertificateOfRegistration { get; set; }
+            public string DriverLicense { get; set; }
+            public string DateOfBirth { get; set; }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             string name = SurnameTextBox.Text;
@@ -91,6 +104,15 @@ namespace WinFormsApp5
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+        private string GetSelectedDriverIds()
+        {
+            var selectedIds = driversDataGridView.SelectedRows
+                .Cast<DataGridViewRow>()
+                .Select(row => row.Cells["Id"].Value.ToString())
+                .ToList();
+
+            return string.Join(",", selectedIds);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -167,84 +189,97 @@ namespace WinFormsApp5
 
         private void Editdriver_Click(object sender, EventArgs e)
         {
-            if (driversDataGridView.CurrentRow == null) return;
+            string idsToEdit = GetSelectedDriverIds();
+            if (string.IsNullOrEmpty(idsToEdit)) return;
+            List<Driver> driversToUpdate = new List<Driver>();
+            string selectDriver = $"SELECT Id, LastName, FirstName, MiddleName, PassportNumber, Phone, Address, CertificateOfRegistration, DriverLicense, DateOfBirth FROM Drivers WHERE Id IN ({idsToEdit})";
 
-            int driverId = Convert.ToInt32(driversDataGridView.CurrentRow.Cells["Id"].Value);
-            string selectDriver = "SELECT LastName, FirstName, MiddleName, PassportNumber, Phone, Address, CertificateOfRegistration, DriverLicense, DateOfBirth FROM Drivers WHERE Id = @Id";
-            string lastName = null, firstName = null, middleName = null, passportNumber = null, phone = null, address = null, certificateOfRegistration = null, driverLicense = null, dateOfBirth = null;
-            
             using (var cmd = new SQLiteCommand(selectDriver, sqliteConn))
             {
-                cmd.Parameters.AddWithValue("@Id", driverId);
-                using (var reader = cmd.ExecuteReader())
+                try
                 {
-                    if (reader.Read()){
-                        lastName = reader["LastName"].ToString();
-                        firstName = reader["FirstName"].ToString();
-                        middleName = reader["MiddleName"].ToString();
-                        passportNumber = reader["PassportNumber"].ToString();
-                        phone = reader["Phone"].ToString();
-                        address = reader["Address"].ToString();
-                        certificateOfRegistration = reader["CertificateOfRegistration"].ToString();
-                        driverLicense = reader["DriverLicense"].ToString();
-                        dateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]).ToString("yyyy-MM-dd");
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Driver driver = new Driver
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                LastName = reader["LastName"].ToString(),
+                                FirstName = reader["FirstName"].ToString(),
+                                MiddleName = reader["MiddleName"].ToString(),
+                                PassportNumber = reader["PassportNumber"].ToString(),
+                                Phone = reader["Phone"].ToString(),
+                                Address = reader["Address"].ToString(),
+                                CertificateOfRegistration = reader["CertificateOfRegistration"].ToString(),
+                                DriverLicense = reader["DriverLicense"].ToString(),
+                                DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]).ToString("yyyy-MM-dd")
+                            };
+                            driversToUpdate.Add(driver);
+                        }
                     }
                 }
-                string updatedLastName = string.IsNullOrEmpty(SurnameTextBox.Text) ? lastName : SurnameTextBox.Text;
-                string updatedFirstName = string.IsNullOrEmpty(firstnametextbox.Text) ? firstName : firstnametextbox.Text;
-                string updatedMiddleName = string.IsNullOrEmpty(middlenametextbox.Text) ? middleName : middlenametextbox.Text;
-                string updatedPassportNumber = string.IsNullOrEmpty(passportnumbertextbox.Text) ? passportNumber : passportnumbertextbox.Text;
-                string updatedPhone = string.IsNullOrEmpty(phonetextbox.Text) ? phone : phonetextbox.Text;
-                string updatedAddress = string.IsNullOrEmpty(addresstextbox.Text) ? address : addresstextbox.Text;
-                string updatedCertificateOfRegistration = string.IsNullOrEmpty(certificateofregistrationtextbox.Text) ? certificateOfRegistration : certificateofregistrationtextbox.Text;
-                string updatedDriverLicense = string.IsNullOrEmpty(driverLicenseTextBox.Text) ? driverLicense : driverLicenseTextBox.Text;
-                string updatedDateOfBirth = driverDateOfBirthPicker.Value.ToString("yyyy-MM-dd"); // Здесь можно оставить настройку по умолчанию
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}");
+                }
+            }
+            foreach (var driver in driversToUpdate)
+            {
+                string updatedLastName = string.IsNullOrEmpty(SurnameTextBox.Text) ? driver.LastName : SurnameTextBox.Text;
+                string updatedFirstName = string.IsNullOrEmpty(firstnametextbox.Text) ? driver.FirstName : firstnametextbox.Text;
+                string updatedMiddleName = string.IsNullOrEmpty(middlenametextbox.Text) ? driver.MiddleName : middlenametextbox.Text;
+                string updatedPassportNumber = string.IsNullOrEmpty(passportnumbertextbox.Text) ? driver.PassportNumber : passportnumbertextbox.Text;
+                string updatedPhone = string.IsNullOrEmpty(phonetextbox.Text) ? driver.Phone : phonetextbox.Text;
+                string updatedAddress = string.IsNullOrEmpty(addresstextbox.Text) ? driver.Address : addresstextbox.Text;
+                string updatedCertificateOfRegistration = string.IsNullOrEmpty(certificateofregistrationtextbox.Text) ? driver.CertificateOfRegistration : certificateofregistrationtextbox.Text;
+                string updatedDriverLicense = string.IsNullOrEmpty(driverLicenseTextBox.Text) ? driver.DriverLicense : driverLicenseTextBox.Text;
+                string updatedDateOfBirth = driverDateOfBirthPicker.Value.ToString("yyyy-MM-dd");
 
                 // Формируем полное имя
                 string fullName = $"{updatedLastName} {updatedFirstName.Substring(0, 1)}. {updatedMiddleName.Substring(0, 1)}.";
 
                 string updateDriver = "UPDATE Drivers SET LastName = @LastName, FirstName = @FirstName, MiddleName = @MiddleName, " +
-                                      "PassportNumber = @PassportNumber, Phone = @Phone, Address = @Address, " +
-                                      "CertificateOfRegistration = @CertificateOfRegistration, DriverLicense = @DriverLicense, " +
-                                      "DateOfBirth = @DateOfBirth, FullName = @FullName WHERE Id = @Id";
+                              "PassportNumber = @PassportNumber, Phone = @Phone, Address = @Address, " +
+                              "CertificateOfRegistration = @CertificateOfRegistration, DriverLicense = @DriverLicense, " +
+                              "DateOfBirth = @DateOfBirth, FullName = @FullName WHERE Id = @Id";
+
                 using (var updateCmd = new SQLiteCommand(updateDriver, sqliteConn))
                 {
-                    cmd.Parameters.AddWithValue("@Id", driverId);
-                    cmd.Parameters.AddWithValue("@LastName", updatedLastName);
-                    cmd.Parameters.AddWithValue("@FirstName", updatedFirstName);
-                    cmd.Parameters.AddWithValue("@MiddleName", updatedMiddleName);
-                    cmd.Parameters.AddWithValue("@PassportNumber", updatedPassportNumber);
-                    cmd.Parameters.AddWithValue("@Phone", updatedPhone);
-                    cmd.Parameters.AddWithValue("@Address", updatedAddress);
-                    cmd.Parameters.AddWithValue("@CertificateOfRegistration", updatedCertificateOfRegistration);
-                    cmd.Parameters.AddWithValue("@DriverLicense", updatedDriverLicense);
-                    cmd.Parameters.AddWithValue("@DateOfBirth", updatedDateOfBirth);
-                    cmd.Parameters.AddWithValue("@FullName", fullName);
+                    updateCmd.Parameters.AddWithValue("@Id", driver.Id);
+                    updateCmd.Parameters.AddWithValue("@LastName", updatedLastName);
+                    updateCmd.Parameters.AddWithValue("@FirstName", updatedFirstName);
+                    updateCmd.Parameters.AddWithValue("@MiddleName", updatedMiddleName);
+                    updateCmd.Parameters.AddWithValue("@PassportNumber", updatedPassportNumber);
+                    updateCmd.Parameters.AddWithValue("@Phone", updatedPhone);
+                    updateCmd.Parameters.AddWithValue("@Address", updatedAddress);
+                    updateCmd.Parameters.AddWithValue("@CertificateOfRegistration", updatedCertificateOfRegistration);
+                    updateCmd.Parameters.AddWithValue("@DriverLicense", updatedDriverLicense);
+                    updateCmd.Parameters.AddWithValue("@DateOfBirth", updatedDateOfBirth);
+                    updateCmd.Parameters.AddWithValue("@FullName", fullName);
 
-                    cmd.ExecuteNonQuery(); // Выполняем запрос
+                    updateCmd.ExecuteNonQuery();
                 }
-                LoadDrivers(); // Перезагрузить данные
             }
-
-            
+            LoadDrivers();
         }
-
         private void Deletedriver_Click(object sender, EventArgs e)
         {
-            if (driversDataGridView.CurrentRow == null) return;
+            var selectedRows = driversDataGridView.SelectedRows;
+            if (selectedRows.Count == 0) return;
 
-            int driverId = Convert.ToInt32(driversDataGridView.CurrentRow.Cells["Id"].Value);
+            var idsToDelete = selectedRows.Cast<DataGridViewRow>().Select(row => Convert.ToInt32(row.Cells["Id"].Value)).ToList();
 
-            DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите удалить данного водителя?", "Подтверждение", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите удалить выбранных водителей?", "Подтверждение", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                string deleteDriver = "DELETE FROM Drivers WHERE Id = @Id";
+                string deleteDriver = $"DELETE FROM Drivers WHERE Id IN ({string.Join(",", idsToDelete)})";
                 using (var cmd = new SQLiteCommand(deleteDriver, sqliteConn))
                 {
-                    cmd.Parameters.AddWithValue("@Id", driverId);
+                    cmd.ExecuteNonQuery();
                 }
 
-                LoadDrivers(); // Перезагрузить данные
+                LoadDrivers();
             }
         }
     }

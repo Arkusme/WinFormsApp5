@@ -58,6 +58,7 @@
             certificateofregistrationtextbox = new TextBox();
             label8 = new Label();
             label9 = new Label();
+            GetSelectedDriverIdstextBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)driversDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)violationsDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AutoDataGridView).BeginInit();
@@ -70,7 +71,7 @@
             driversDataGridView.Location = new Point(535, 35);
             driversDataGridView.Name = "driversDataGridView";
             driversDataGridView.RowTemplate.Height = 25;
-            driversDataGridView.Size = new Size(369, 79);
+            driversDataGridView.Size = new Size(763, 115);
             driversDataGridView.TabIndex = 0;
             // 
             // SurnameTextBox
@@ -82,7 +83,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(526, 140);
+            button1.Location = new Point(516, 156);
             button1.Name = "button1";
             button1.Size = new Size(122, 37);
             button1.TabIndex = 3;
@@ -167,7 +168,7 @@
             // 
             // Adddriver
             // 
-            Adddriver.Location = new Point(663, 147);
+            Adddriver.Location = new Point(663, 163);
             Adddriver.Name = "Adddriver";
             Adddriver.Size = new Size(75, 23);
             Adddriver.TabIndex = 13;
@@ -177,7 +178,7 @@
             // 
             // Editdriver
             // 
-            Editdriver.Location = new Point(744, 147);
+            Editdriver.Location = new Point(744, 163);
             Editdriver.Name = "Editdriver";
             Editdriver.Size = new Size(75, 23);
             Editdriver.TabIndex = 14;
@@ -187,7 +188,7 @@
             // 
             // Deletedriver
             // 
-            Deletedriver.Location = new Point(825, 147);
+            Deletedriver.Location = new Point(829, 163);
             Deletedriver.Name = "Deletedriver";
             Deletedriver.Size = new Size(75, 23);
             Deletedriver.TabIndex = 15;
@@ -318,11 +319,19 @@
             label9.TabIndex = 30;
             label9.Text = "Дата рождения";
             // 
+            // GetSelectedDriverIdstextBox
+            // 
+            GetSelectedDriverIdstextBox.Location = new Point(744, 192);
+            GetSelectedDriverIdstextBox.Name = "GetSelectedDriverIdstextBox";
+            GetSelectedDriverIdstextBox.Size = new Size(75, 23);
+            GetSelectedDriverIdstextBox.TabIndex = 31;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(916, 604);
+            ClientSize = new Size(1360, 604);
+            Controls.Add(GetSelectedDriverIdstextBox);
             Controls.Add(label9);
             Controls.Add(label8);
             Controls.Add(certificateofregistrationtextbox);
@@ -396,5 +405,6 @@
         private TextBox certificateofregistrationtextbox;
         private Label label8;
         private Label label9;
+        private TextBox GetSelectedDriverIdstextBox;
     }
 }
