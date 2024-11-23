@@ -30,13 +30,13 @@
         {
             driversDataGridView = new DataGridView();
             SurnameTextBox = new TextBox();
-            button1 = new Button();
+            searchdriver = new Button();
             violationsDataGridView = new DataGridView();
             AutoDataGridView = new DataGridView();
             PolicemanDataGridView = new DataGridView();
             button2 = new Button();
             searchEmployeeTextBox = new TextBox();
-            searchVehicleTextBox = new TextBox();
+            MakeTextBox = new TextBox();
             button3 = new Button();
             driverLicenseTextBox = new TextBox();
             driverDateOfBirthPicker = new DateTimePicker();
@@ -58,7 +58,18 @@
             certificateofregistrationtextbox = new TextBox();
             label8 = new Label();
             label9 = new Label();
-            GetSelectedDriverIdstextBox = new TextBox();
+            STStextBox = new TextBox();
+            label10 = new Label();
+            yeartextBox = new TextBox();
+            PlatetextBox = new TextBox();
+            ModeltextBox = new TextBox();
+            label12 = new Label();
+            label13 = new Label();
+            label14 = new Label();
+            Марка = new Label();
+            AddCar = new Button();
+            EditCar = new Button();
+            DeleteCar = new Button();
             ((System.ComponentModel.ISupportInitialize)driversDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)violationsDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AutoDataGridView).BeginInit();
@@ -73,6 +84,7 @@
             driversDataGridView.RowTemplate.Height = 25;
             driversDataGridView.Size = new Size(763, 115);
             driversDataGridView.TabIndex = 0;
+            driversDataGridView.CellContentClick += driversDataGridView_CellContentClick;
             // 
             // SurnameTextBox
             // 
@@ -81,15 +93,15 @@
             SurnameTextBox.Size = new Size(109, 23);
             SurnameTextBox.TabIndex = 1;
             // 
-            // button1
+            // searchdriver
             // 
-            button1.Location = new Point(516, 156);
-            button1.Name = "button1";
-            button1.Size = new Size(122, 37);
-            button1.TabIndex = 3;
-            button1.Text = "Поиск водителей";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            searchdriver.Location = new Point(516, 156);
+            searchdriver.Name = "searchdriver";
+            searchdriver.Size = new Size(122, 37);
+            searchdriver.TabIndex = 3;
+            searchdriver.Text = "Поиск водителей";
+            searchdriver.UseVisualStyleBackColor = true;
+            searchdriver.Click += button1_Click;
             // 
             // violationsDataGridView
             // 
@@ -103,11 +115,12 @@
             // AutoDataGridView
             // 
             AutoDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            AutoDataGridView.Location = new Point(526, 326);
+            AutoDataGridView.Location = new Point(535, 221);
             AutoDataGridView.Name = "AutoDataGridView";
             AutoDataGridView.RowTemplate.Height = 25;
-            AutoDataGridView.Size = new Size(369, 75);
+            AutoDataGridView.Size = new Size(753, 104);
             AutoDataGridView.TabIndex = 5;
+            AutoDataGridView.CellContentClick += AutoDataGridView_CellContentClick;
             // 
             // PolicemanDataGridView
             // 
@@ -135,18 +148,18 @@
             searchEmployeeTextBox.Size = new Size(109, 23);
             searchEmployeeTextBox.TabIndex = 8;
             // 
-            // searchVehicleTextBox
+            // MakeTextBox
             // 
-            searchVehicleTextBox.Location = new Point(26, 370);
-            searchVehicleTextBox.Name = "searchVehicleTextBox";
-            searchVehicleTextBox.Size = new Size(109, 23);
-            searchVehicleTextBox.TabIndex = 9;
+            MakeTextBox.Location = new Point(12, 221);
+            MakeTextBox.Name = "MakeTextBox";
+            MakeTextBox.Size = new Size(109, 23);
+            MakeTextBox.TabIndex = 9;
             // 
             // button3
             // 
-            button3.Location = new Point(284, 360);
+            button3.Location = new Point(516, 331);
             button3.Name = "button3";
-            button3.Size = new Size(122, 41);
+            button3.Size = new Size(122, 59);
             button3.TabIndex = 10;
             button3.Text = "Поиск транспортного средства";
             button3.UseVisualStyleBackColor = true;
@@ -319,19 +332,126 @@
             label9.TabIndex = 30;
             label9.Text = "Дата рождения";
             // 
-            // GetSelectedDriverIdstextBox
+            // STStextBox
             // 
-            GetSelectedDriverIdstextBox.Location = new Point(744, 192);
-            GetSelectedDriverIdstextBox.Name = "GetSelectedDriverIdstextBox";
-            GetSelectedDriverIdstextBox.Size = new Size(75, 23);
-            GetSelectedDriverIdstextBox.TabIndex = 31;
+            STStextBox.Location = new Point(192, 267);
+            STStextBox.Name = "STStextBox";
+            STStextBox.Size = new Size(101, 23);
+            STStextBox.TabIndex = 33;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(226, 249);
+            label10.Name = "label10";
+            label10.Size = new Size(29, 15);
+            label10.TabIndex = 32;
+            label10.Text = "СТС";
+            // 
+            // yeartextBox
+            // 
+            yeartextBox.Location = new Point(357, 221);
+            yeartextBox.Name = "yeartextBox";
+            yeartextBox.Size = new Size(109, 23);
+            yeartextBox.TabIndex = 35;
+            // 
+            // PlatetextBox
+            // 
+            PlatetextBox.Location = new Point(242, 221);
+            PlatetextBox.Name = "PlatetextBox";
+            PlatetextBox.Size = new Size(109, 23);
+            PlatetextBox.TabIndex = 36;
+            // 
+            // ModeltextBox
+            // 
+            ModeltextBox.Location = new Point(127, 221);
+            ModeltextBox.Name = "ModeltextBox";
+            ModeltextBox.Size = new Size(109, 23);
+            ModeltextBox.TabIndex = 37;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(364, 203);
+            label12.Name = "label12";
+            label12.Size = new Size(102, 15);
+            label12.TabIndex = 39;
+            label12.Text = "Год выпуска авто";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(264, 203);
+            label13.Name = "label13";
+            label13.Size = new Size(68, 15);
+            label13.TabIndex = 40;
+            label13.Text = "Гос. номер";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(161, 203);
+            label14.Name = "label14";
+            label14.Size = new Size(50, 15);
+            label14.TabIndex = 41;
+            label14.Text = "Модель";
+            // 
+            // Марка
+            // 
+            Марка.AutoSize = true;
+            Марка.Location = new Point(40, 203);
+            Марка.Name = "Марка";
+            Марка.Size = new Size(43, 15);
+            Марка.TabIndex = 42;
+            Марка.Text = "Марка";
+            // 
+            // AddCar
+            // 
+            AddCar.Location = new Point(663, 358);
+            AddCar.Name = "AddCar";
+            AddCar.Size = new Size(75, 23);
+            AddCar.TabIndex = 43;
+            AddCar.Text = "добавить";
+            AddCar.UseVisualStyleBackColor = true;
+            AddCar.Click += AddCar_Click;
+            // 
+            // EditCar
+            // 
+            EditCar.Location = new Point(744, 358);
+            EditCar.Name = "EditCar";
+            EditCar.Size = new Size(75, 23);
+            EditCar.TabIndex = 44;
+            EditCar.Text = "изменить";
+            EditCar.UseVisualStyleBackColor = true;
+            EditCar.Click += EditCar_Click;
+            // 
+            // DeleteCar
+            // 
+            DeleteCar.Location = new Point(825, 358);
+            DeleteCar.Name = "DeleteCar";
+            DeleteCar.Size = new Size(75, 23);
+            DeleteCar.TabIndex = 45;
+            DeleteCar.Text = "удалить";
+            DeleteCar.UseVisualStyleBackColor = true;
+            DeleteCar.Click += DeleteCar_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1360, 604);
-            Controls.Add(GetSelectedDriverIdstextBox);
+            Controls.Add(DeleteCar);
+            Controls.Add(EditCar);
+            Controls.Add(AddCar);
+            Controls.Add(Марка);
+            Controls.Add(label14);
+            Controls.Add(label13);
+            Controls.Add(label12);
+            Controls.Add(ModeltextBox);
+            Controls.Add(PlatetextBox);
+            Controls.Add(yeartextBox);
+            Controls.Add(STStextBox);
+            Controls.Add(label10);
             Controls.Add(label9);
             Controls.Add(label8);
             Controls.Add(certificateofregistrationtextbox);
@@ -353,13 +473,13 @@
             Controls.Add(driverDateOfBirthPicker);
             Controls.Add(driverLicenseTextBox);
             Controls.Add(button3);
-            Controls.Add(searchVehicleTextBox);
+            Controls.Add(MakeTextBox);
             Controls.Add(searchEmployeeTextBox);
             Controls.Add(button2);
             Controls.Add(PolicemanDataGridView);
             Controls.Add(AutoDataGridView);
             Controls.Add(violationsDataGridView);
-            Controls.Add(button1);
+            Controls.Add(searchdriver);
             Controls.Add(SurnameTextBox);
             Controls.Add(driversDataGridView);
             Name = "Form1";
@@ -377,13 +497,13 @@
 
         private DataGridView driversDataGridView;
         private TextBox SurnameTextBox;
-        private Button button1;
+        private Button searchdriver;
         private DataGridView violationsDataGridView;
         private DataGridView AutoDataGridView;
         private DataGridView PolicemanDataGridView;
         private Button button2;
         private TextBox searchEmployeeTextBox;
-        private TextBox searchVehicleTextBox;
+        private TextBox MakeTextBox;
         private Button button3;
         private TextBox driverLicenseTextBox;
         private DateTimePicker driverDateOfBirthPicker;
@@ -405,6 +525,17 @@
         private TextBox certificateofregistrationtextbox;
         private Label label8;
         private Label label9;
-        private TextBox GetSelectedDriverIdstextBox;
+        private TextBox STStextBox;
+        private Label label10;
+        private TextBox yeartextBox;
+        private TextBox PlatetextBox;
+        private TextBox ModeltextBox;
+        private Label label12;
+        private Label label13;
+        private Label label14;
+        private Label Марка;
+        private Button AddCar;
+        private Button EditCar;
+        private Button DeleteCar;
     }
 }

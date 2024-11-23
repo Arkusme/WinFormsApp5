@@ -44,10 +44,18 @@ namespace WinFormsApp5
         }
         private void LoadAuto()
         {
-            var AutoAdapter = new SQLiteDataAdapter("SELECT * FROM Auto", sqliteConn);
-            var AutoTable = new DataTable();
-            AutoAdapter.Fill(AutoTable);
-            AutoDataGridView.DataSource = AutoTable;
+            string selectQuery = "SELECT a.CertificateOfRegistration, a.Make, a.Model, a.LicensePlate, a.Year, d.FullName AS OwnerName " +
+                          "FROM Auto a JOIN Drivers d ON a.OwnerId = d.Id";
+
+            using (var cmd = new SQLiteCommand(selectQuery, sqliteConn))
+            {
+                using (var adapter = new SQLiteDataAdapter(cmd))
+                {
+                    var table = new DataTable();
+                    adapter.Fill(table);
+                    AutoDataGridView.DataSource = table;
+                }
+            }
         }
         private void LoadPoliceman()
         {
@@ -76,6 +84,56 @@ namespace WinFormsApp5
             public string DriverLicense { get; set; }
             public string DateOfBirth { get; set; }
         }
+        private int GetNextDriverId()
+        {
+            // Получаем все существующие ID
+            var ids = new List<int>();
+            string selectQuery = "SELECT Id FROM Drivers";
+            using (var cmd = new SQLiteCommand(selectQuery, sqliteConn))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    ids.Add(reader.GetInt32(0)); // Предполагается, что Id - это первый столбец
+                }
+            }
+
+            // Найти первый свободный ID
+            for (int i = 1; i <= ids.Count + 1; i++)
+            {
+                if (!ids.Contains(i))
+                {
+                    return i;
+                }
+            }
+
+            return ids.Count + 1; // Если все ID заняты, вернуть следующий
+        }
+        private bool IsDriverExists(string lastName, string firstName, string middleName, string passportNumber)
+        {
+            string selectQuery = "SELECT COUNT(*) FROM Drivers WHERE LastName = @LastName AND FirstName = @FirstName AND MiddleName = @MiddleName AND PassportNumber = @PassportNumber";
+            using (var cmd = new SQLiteCommand(selectQuery, sqliteConn))
+            {
+                cmd.Parameters.AddWithValue("@LastName", lastName);
+                cmd.Parameters.AddWithValue("@FirstName", firstName);
+                cmd.Parameters.AddWithValue("@MiddleName", middleName);
+                cmd.Parameters.AddWithValue("@PassportNumber", passportNumber);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+        }
+        public class Car
+        {
+            public int Id { get; set; }
+            public string CertificateOfRegistration { get; set; }
+            public string Make { get; set; }
+            public string Model { get; set; }
+            public string LicensePlate { get; set; }
+            public int Year { get; set; }
+            public int OwnerId { get; set; } // Убедитесь, что это ID владельца
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string name = SurnameTextBox.Text;
@@ -132,21 +190,20 @@ namespace WinFormsApp5
             PolicemanDataGridView.DataSource = driverTable;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)//посмотреть
         {
-            string searchLicensePlate = searchVehicleTextBox.Text;
+            string licensePlate = PlatetextBox.Text; // Используйте текстовое поле для ввода номера
 
-            if (string.IsNullOrEmpty(searchLicensePlate))
+            string searchQuery = "SELECT * FROM Cars WHERE LicensePlate LIKE '%' || @LicensePlate || '%'";
+            using (var cmd = new SQLiteCommand(searchQuery, sqliteConn))
             {
-                MessageBox.Show("Введите номер лицензии для поиска.");
-                return;
-            }
+                cmd.Parameters.AddWithValue("@LicensePlate", licensePlate);
 
-            var vehicleAdapter = new SQLiteDataAdapter("SELECT * FROM Vehicles WHERE LicensePlate LIKE @LicensePlate", sqliteConn);
-            vehicleAdapter.SelectCommand.Parameters.AddWithValue("@LicensePlate", "%" + searchLicensePlate + "%");
-            var vehicleTable = new DataTable();
-            vehicleAdapter.Fill(vehicleTable);
-            AutoDataGridView.DataSource = vehicleTable;
+                using (var reader = cmd.ExecuteReader())
+                {
+                    // Обработка результатов поиска и вывод в carsDataGridView
+                }
+            }
         }
 
         private void Adddriver_Click(object sender, EventArgs e)
@@ -160,6 +217,14 @@ namespace WinFormsApp5
             string certificateofregistration = certificateofregistrationtextbox.Text;
             string driverlicense = driverLicenseTextBox.Text;
             string dateOfBirth = driverDateOfBirthPicker.Value.ToString("yyyy-MM-dd");
+            // Проверяем на уникальность
+            if (IsDriverExists(lastName, firstname, middlename, passportnumber))
+            {
+                MessageBox.Show("Такой водитель уже существует.");
+                return;
+            }
+            // Получаем следующий ID
+            int nextId = GetNextDriverId();
 
             // Формируем полное имя в формате "Фамилия И. О."
             string fullName = $"{lastName} {firstname.Substring(0, 1)}. {middlename.Substring(0, 1)}.";
@@ -280,6 +345,167 @@ namespace WinFormsApp5
                 }
 
                 LoadDrivers();
+            }
+        }
+
+        private void driversDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Убедитесь, что вы кликнули по строке
+            {
+                DataGridViewRow row = this.driversDataGridView.Rows[e.RowIndex];
+
+                // Здесь можете создать и показать форму с полными данными
+                var driverDetailsForm = new DriverDetailsForm(
+                    row.Cells["LastName"].Value.ToString(),
+                    row.Cells["FirstName"].Value.ToString(),
+                    row.Cells["MiddleName"].Value.ToString(),
+                    row.Cells["PassportNumber"].Value.ToString(),
+                    row.Cells["Phone"].Value.ToString(),
+                    row.Cells["Address"].Value.ToString(),
+                    row.Cells["CertificateOfRegistration"].Value.ToString(),
+                    row.Cells["DriverLicense"].Value.ToString(),
+                    Convert.ToDateTime(row.Cells["DateOfBirth"].Value)
+                );
+
+                driverDetailsForm.Show();
+            }
+        }
+
+        private void AddCar_Click(object sender, EventArgs e)
+        {
+            string certificateOfRegistration = STStextBox.Text; // пример
+            string make = MakeTextBox.Text; // пример
+            string model = ModeltextBox.Text; // пример
+            string licensePlate = PlatetextBox.Text; // пример
+            int year = Convert.ToInt32(yeartextBox.Text); // пример (проверьте, что значение может быть преобразовано в int)
+
+            try
+            {
+                // Получаем OwnerId на основе CertificateOfRegistration водителя
+                string getOwnerIdQuery = "SELECT Id FROM Drivers WHERE CertificateOfRegistration = @CertificateOfRegistration";
+                int ownerId = -1;
+
+                using (var getOwnerIdCmd = new SQLiteCommand(getOwnerIdQuery, sqliteConn))
+                {
+                    getOwnerIdCmd.Parameters.AddWithValue("@CertificateOfRegistration", certificateOfRegistration);
+                    object result = getOwnerIdCmd.ExecuteScalar();
+
+                    if (result != null)
+                    {
+                        ownerId = Convert.ToInt32(result); // Присваиваем найденный Id
+                    }
+                }
+
+                // Проверка, существует ли водитель с указанным свидетельством о регистрации
+                if (ownerId != -1)
+                {
+                    // SQL для вставки данных об автомобиле
+                    string insertCarQuery = "INSERT INTO Auto (CertificateOfRegistration, Make, Model, LicensePlate, Year, OwnerId) " +
+                                             "VALUES (@CertificateOfRegistration, @Make, @Model, @LicensePlate, @Year, @OwnerId)";
+
+                    using (var insertCmd = new SQLiteCommand(insertCarQuery, sqliteConn))
+                    {
+                        insertCmd.Parameters.AddWithValue("@CertificateOfRegistration", certificateOfRegistration);
+                        insertCmd.Parameters.AddWithValue("@Make", make);
+                        insertCmd.Parameters.AddWithValue("@Model", model);
+                        insertCmd.Parameters.AddWithValue("@LicensePlate", licensePlate);
+                        insertCmd.Parameters.AddWithValue("@Year", year);
+                        insertCmd.Parameters.AddWithValue("@OwnerId", ownerId); // Используем найденный Id водителя
+
+                        insertCmd.ExecuteNonQuery(); // Выполняем запрос
+                    }
+
+                    MessageBox.Show("Автомобиль успешно добавлен!");
+                }
+                else
+                {
+                    MessageBox.Show("Водитель с указанным свидетельством о регистрации не найден.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при добавлении автомобиля: {ex.Message}");
+            }
+        }
+
+        private void EditCar_Click(object sender, EventArgs e)
+        {
+            var selectedRows = AutoDataGridView.SelectedRows; // Предположим, что carsDataGridView - это ваш DataGridView для автомобилей
+            if (selectedRows.Count == 0) return;
+
+            foreach (DataGridViewRow row in selectedRows)
+            {
+                int carId = Convert.ToInt32(row.Cells["Id"].Value);//тоже исправить
+                string updatedCertificateOfRegistration = STStextBox.Text;
+                string updatedMake = MakeTextBox.Text;
+                string updatedModel = ModeltextBox.Text;
+                string updatedLicensePlate = PlatetextBox.Text;
+                int updatedYear;
+                int updatedOwnerId;
+
+                if (!int.TryParse(yeartextBox.Text, out updatedYear))
+                {
+                    MessageBox.Show("Пожалуйста, введите корректный год.");
+                    return;
+                }
+
+                string updateCar = "UPDATE Cars SET CertificateOfRegistration = @CertificateOfRegistration, Make = @Make, " +
+                                    "Model = @Model, LicensePlate = @LicensePlate, Year = @Year, OwnerId = @OwnerId " +
+                                    "WHERE Id = @Id";
+
+                using (var cmd = new SQLiteCommand(updateCar, sqliteConn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", carId);
+                    cmd.Parameters.AddWithValue("@CertificateOfRegistration", updatedCertificateOfRegistration);
+                    cmd.Parameters.AddWithValue("@Make", updatedMake);
+                    cmd.Parameters.AddWithValue("@Model", updatedModel);
+                    cmd.Parameters.AddWithValue("@LicensePlate", updatedLicensePlate);
+                    cmd.Parameters.AddWithValue("@Year", updatedYear);
+
+                    cmd.ExecuteNonQuery(); // Выполняем обновление
+                }
+            }
+
+            LoadAuto(); // Перезагрузить данные
+        }
+
+        private void DeleteCar_Click(object sender, EventArgs e)
+        {
+            var selectedRows = AutoDataGridView.SelectedRows; // Предположим, что carsDataGridView - это ваш DataGridView для автомобилей
+            if (selectedRows.Count == 0) return;
+
+            var idsToDelete = selectedRows.Cast<DataGridViewRow>().Select(row => Convert.ToInt32(row.Cells["Id"].Value)).ToList();//ошибка здесь!
+
+            DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите удалить выбранные автомобили?", "Подтверждение", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string deleteCar = $"DELETE FROM Cars WHERE Id IN ({string.Join(",", idsToDelete)})";
+                using (var cmd = new SQLiteCommand(deleteCar, sqliteConn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+
+                LoadAuto(); // Перезагрузить данные
+            }
+        }
+
+        private void AutoDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Убедитесь, что вы кликнули по строке
+            {
+                DataGridViewRow row = this.AutoDataGridView.Rows[e.RowIndex];
+
+                // Получаем данные для создания формы деталей автомобиля
+                string certificateOfRegistration = row.Cells["CertificateOfRegistration"].Value.ToString();
+                string make = row.Cells["Make"].Value.ToString();
+                string model = row.Cells["Model"].Value.ToString();
+                string licensePlate = row.Cells["LicensePlate"].Value.ToString();
+                int year = Convert.ToInt32(row.Cells["Year"].Value);
+                string ownerName = row.Cells["OwnerName"].Value.ToString();
+
+                // Создайте и покажите форму с полными данными
+                var autoDetailsForm = new AutoDetailsForm(certificateOfRegistration, make, model, licensePlate, year, ownerName);
+                autoDetailsForm.Show();
             }
         }
     }

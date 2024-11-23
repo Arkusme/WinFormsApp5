@@ -12,4 +12,12 @@
     <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\курсач\WinFormsApp5\WinFormsApp5\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\курсач\WinFormsApp5\WinFormsApp5\.editorconfig" />
+  </ItemGroup>
+
 </Project>
