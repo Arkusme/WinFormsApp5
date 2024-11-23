@@ -504,7 +504,7 @@ namespace WinFormsApp5
                 string ownerName = row.Cells["OwnerName"].Value.ToString();
 
                 // Создайте и покажите форму с полными данными
-                var autoDetailsForm = new AutoDetailsForm(certificateOfRegistration, make, model, licensePlate, year, ownerName);
+                var autoDetailsForm = new AutoDetailsForm(certificateOfRegistration, make, model, licensePlate, year);
                 autoDetailsForm.Show();
             }
         }
