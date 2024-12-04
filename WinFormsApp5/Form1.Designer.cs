@@ -70,6 +70,8 @@
             AddCar = new Button();
             EditCar = new Button();
             DeleteCar = new Button();
+            Obnovedriv = new Button();
+            ObnoveAuto = new Button();
             ((System.ComponentModel.ISupportInitialize)driversDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)violationsDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AutoDataGridView).BeginInit();
@@ -92,6 +94,7 @@
             SurnameTextBox.Name = "SurnameTextBox";
             SurnameTextBox.Size = new Size(109, 23);
             SurnameTextBox.TabIndex = 1;
+            SurnameTextBox.Text = " ";
             // 
             // searchdriver
             // 
@@ -435,11 +438,33 @@
             DeleteCar.UseVisualStyleBackColor = true;
             DeleteCar.Click += DeleteCar_Click;
             // 
+            // Obnovedriv
+            // 
+            Obnovedriv.Location = new Point(910, 163);
+            Obnovedriv.Name = "Obnovedriv";
+            Obnovedriv.Size = new Size(75, 23);
+            Obnovedriv.TabIndex = 46;
+            Obnovedriv.Text = "Обновить";
+            Obnovedriv.UseVisualStyleBackColor = true;
+            Obnovedriv.Click += Obnovedriv_Click;
+            // 
+            // ObnoveAuto
+            // 
+            ObnoveAuto.Location = new Point(906, 358);
+            ObnoveAuto.Name = "ObnoveAuto";
+            ObnoveAuto.Size = new Size(75, 23);
+            ObnoveAuto.TabIndex = 47;
+            ObnoveAuto.Text = "Обновить";
+            ObnoveAuto.UseVisualStyleBackColor = true;
+            ObnoveAuto.Click += ObnoveAuto_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1360, 604);
+            Controls.Add(ObnoveAuto);
+            Controls.Add(Obnovedriv);
             Controls.Add(DeleteCar);
             Controls.Add(EditCar);
             Controls.Add(AddCar);
@@ -537,5 +562,7 @@
         private Button AddCar;
         private Button EditCar;
         private Button DeleteCar;
+        private Button Obnovedriv;
+        private Button ObnoveAuto;
     }
 }
