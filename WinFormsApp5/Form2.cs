@@ -18,15 +18,32 @@ namespace WinFormsApp5
         {
             InitializeComponent();
         }
+        private void LoadImage(string path)
+        {
+            if (File.Exists(path))
+            {
+                pictureBox1.Image = Image.FromFile(path);
+            }
+            else
+            {
+                MessageBox.Show("Изображение не найдено.");
+            }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
             string userName = userNameTextBox.Text;
             string password = passwordTextBox.Text;
+            if (userName =="gai" && password == "")
+            {
+                Gai gaiForm = new Gai();
+                gaiForm.Show();
+                this.Hide();
+            }
             if (userName == "user" && password == "")
             {
-                Form1 userForm = new Form1();
-                userForm.Show(); 
+                User userForm = new User();
+                userForm.Show();
                 this.Hide();
             }
             else if (userName == "admin" && password == "admin")
@@ -38,8 +55,8 @@ namespace WinFormsApp5
             else
             {
                 MessageBox.Show("Неверный логин или пароль.");
-            }       
-            
+            }
+
         }
     }
 }

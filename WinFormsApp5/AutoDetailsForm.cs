@@ -12,7 +12,7 @@ namespace WinFormsApp5
 {
     public partial class AutoDetailsForm : Form
     {
-        public AutoDetailsForm(string certificateOfRegistration, string make, string model, string licensePlate, int year)
+        public AutoDetailsForm(string certificateOfRegistration, string make, string model, string licensePlate, int year, string OwnerName)
         {
             InitializeComponent();
             STStextBox.Text = certificateOfRegistration;
@@ -20,6 +20,8 @@ namespace WinFormsApp5
             ModeltextBox.Text = model;
             PlatetextBox.Text = licensePlate;
             yeartextBox.Text = year.ToString();
+            DriverNameTextBox.Text = OwnerName;
+
         }
     }
 }

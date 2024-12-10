@@ -38,12 +38,14 @@
             STStextBox = new TextBox();
             label10 = new Label();
             MakeTextBox = new TextBox();
+            label1 = new Label();
+            DriverNameTextBox = new TextBox();
             SuspendLayout();
             // 
             // Марка
             // 
             Марка.AutoSize = true;
-            Марка.Location = new Point(188, 7);
+            Марка.Location = new Point(120, 7);
             Марка.Name = "Марка";
             Марка.Size = new Size(43, 15);
             Марка.TabIndex = 52;
@@ -52,7 +54,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(309, 7);
+            label14.Location = new Point(241, 7);
             label14.Name = "label14";
             label14.Size = new Size(50, 15);
             label14.TabIndex = 51;
@@ -61,7 +63,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(412, 7);
+            label13.Location = new Point(344, 7);
             label13.Name = "label13";
             label13.Size = new Size(68, 15);
             label13.TabIndex = 50;
@@ -70,7 +72,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(512, 7);
+            label12.Location = new Point(444, 7);
             label12.Name = "label12";
             label12.Size = new Size(102, 15);
             label12.TabIndex = 49;
@@ -78,28 +80,28 @@
             // 
             // ModeltextBox
             // 
-            ModeltextBox.Location = new Point(275, 25);
+            ModeltextBox.Location = new Point(207, 25);
             ModeltextBox.Name = "ModeltextBox";
             ModeltextBox.Size = new Size(109, 23);
             ModeltextBox.TabIndex = 48;
             // 
             // PlatetextBox
             // 
-            PlatetextBox.Location = new Point(390, 25);
+            PlatetextBox.Location = new Point(322, 25);
             PlatetextBox.Name = "PlatetextBox";
             PlatetextBox.Size = new Size(109, 23);
             PlatetextBox.TabIndex = 47;
             // 
             // yeartextBox
             // 
-            yeartextBox.Location = new Point(505, 25);
+            yeartextBox.Location = new Point(437, 25);
             yeartextBox.Name = "yeartextBox";
             yeartextBox.Size = new Size(109, 23);
             yeartextBox.TabIndex = 46;
             // 
             // STStextBox
             // 
-            STStextBox.Location = new Point(340, 71);
+            STStextBox.Location = new Point(552, 25);
             STStextBox.Name = "STStextBox";
             STStextBox.Size = new Size(101, 23);
             STStextBox.TabIndex = 45;
@@ -107,7 +109,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(374, 53);
+            label10.Location = new Point(586, 7);
             label10.Name = "label10";
             label10.Size = new Size(29, 15);
             label10.TabIndex = 44;
@@ -115,16 +117,34 @@
             // 
             // MakeTextBox
             // 
-            MakeTextBox.Location = new Point(160, 25);
+            MakeTextBox.Location = new Point(92, 25);
             MakeTextBox.Name = "MakeTextBox";
             MakeTextBox.Size = new Size(109, 23);
             MakeTextBox.TabIndex = 43;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(681, 7);
+            label1.Name = "label1";
+            label1.Size = new Size(58, 15);
+            label1.TabIndex = 224;
+            label1.Text = "Водитель";
+            // 
+            // DriverNameTextBox
+            // 
+            DriverNameTextBox.Location = new Point(659, 25);
+            DriverNameTextBox.Name = "DriverNameTextBox";
+            DriverNameTextBox.Size = new Size(100, 23);
+            DriverNameTextBox.TabIndex = 223;
             // 
             // AutoDetailsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 123);
+            ClientSize = new Size(800, 63);
+            Controls.Add(label1);
+            Controls.Add(DriverNameTextBox);
             Controls.Add(Марка);
             Controls.Add(label14);
             Controls.Add(label13);
@@ -153,5 +173,7 @@
         private TextBox STStextBox;
         private Label label10;
         private TextBox MakeTextBox;
+        private Label label1;
+        private TextBox DriverNameTextBox;
     }
 }
