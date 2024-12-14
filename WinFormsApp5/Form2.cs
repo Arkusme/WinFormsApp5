@@ -17,24 +17,18 @@ namespace WinFormsApp5
         public Form2()
         {
             InitializeComponent();
-        }
-        private void LoadImage(string path)
-        {
-            if (File.Exists(path))
-            {
-                pictureBox1.Image = Image.FromFile(path);
-            }
-            else
-            {
-                MessageBox.Show("Изображение не найдено.");
-            }
+            this.FormClosing += new FormClosingEventHandler(Form2_FormClosing);
         }
 
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit(); // Завершить приложение при закрытии Form2
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             string userName = userNameTextBox.Text;
             string password = passwordTextBox.Text;
-            if (userName =="gai" && password == "")
+            if (userName == "gai" && password == "")
             {
                 Gai gaiForm = new Gai();
                 gaiForm.Show();
@@ -58,5 +52,12 @@ namespace WinFormsApp5
             }
 
         }
+        private void GoBackToForm1()
+        {
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Hide(); // Скрыть текущую форму вместо закрытия
+        }
+
     }
 }
