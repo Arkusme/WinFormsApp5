@@ -24,19 +24,6 @@ namespace WinFormsApp5
         {
             Application.Exit(); // Завершить приложение при закрытии Form2
         }
-
-        private void LoadImage(string path)
-        {
-            if (File.Exists(path))
-            {
-                pictureBox1.Image = Image.FromFile(path);
-            }
-            else
-            {
-                MessageBox.Show("Изображение не найдено.");
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             string userName = userNameTextBox.Text;
@@ -53,7 +40,7 @@ namespace WinFormsApp5
                 userForm.Show();
                 this.Hide();
             }
-            else if ((userName == "admin" && password == "") || userName == "фвьшт")
+            else if (userName == "admin" && password == "admin")
             {
                 Form1 adminForm = new Form1();
                 adminForm.Show();
