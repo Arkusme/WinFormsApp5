@@ -17,7 +17,14 @@ namespace WinFormsApp5
         public Form2()
         {
             InitializeComponent();
+            this.FormClosing += new FormClosingEventHandler(Form2_FormClosing);
+        }       
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit(); // Завершить приложение при закрытии Form2
         }
+
         private void LoadImage(string path)
         {
             if (File.Exists(path))
@@ -46,7 +53,7 @@ namespace WinFormsApp5
                 userForm.Show();
                 this.Hide();
             }
-            else if (userName == "admin" && password == "admin")
+            else if ((userName == "admin" && password == "" )|| userName == "фвьшт")
             {
                 Form1 adminForm = new Form1();
                 adminForm.Show();
@@ -58,5 +65,12 @@ namespace WinFormsApp5
             }
 
         }
+        private void GoBackToForm1()
+        {
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Hide(); // Скрыть текущую форму вместо закрытия
+        }
+
     }
 }

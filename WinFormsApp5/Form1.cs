@@ -16,7 +16,362 @@ namespace WinFormsApp5
             InitializeDatabase();
             LoadData();
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
+
+            // Привязка события CellDoubleClick к методу обработчика
+            this.driversDataGridView.CellDoubleClick += new DataGridViewCellEventHandler(driversDataGridView_CellDoubleClick);
+
+            // Установите DataGridView только для чтения
+            this.driversDataGridView.ReadOnly = true;
+            this.AutoDataGridView.CellDoubleClick += new DataGridViewCellEventHandler(AutoDataGridView_CellDoubleClick);
+            this.AutoDataGridView.ReadOnly = true;
+            this.PolicemanDataGridView.CellDoubleClick += new DataGridViewCellEventHandler(PolicemanDataGridView_CellDoubleClick);
+            this.PolicemanDataGridView.ReadOnly = true;
+            this.violationsDataGridView.CellDoubleClick += new DataGridViewCellEventHandler(violationsDataGridView_CellDoubleClick);
+            this.violationsDataGridView.ReadOnly = true;
+            this.RegistrdataGridView.CellDoubleClick += new DataGridViewCellEventHandler(RegistrdataGridView_CellDoubleClick);
+            this.RegistrdataGridView.ReadOnly = true;
+            // Привязка обработчиков событий
+            SurnameTextBox.KeyPress += new KeyPressEventHandler(SurnameTextBox_KeyPress);
+            SurnameTextBox.Leave += new EventHandler(SurnameTextBox_Leave);
+
+            firstnametextbox.KeyPress += new KeyPressEventHandler(firstnametextbox_KeyPress);
+            firstnametextbox.Leave += new EventHandler(firstnametextbox_Leave);
+
+            middlenametextbox.KeyPress += new KeyPressEventHandler(middlenametextbox_KeyPress);
+            middlenametextbox.Leave += new EventHandler(middlenametextbox_Leave);
+
+            passportnumbertextbox.KeyPress += new KeyPressEventHandler(passportnumbertextbox_KeyPress);
+            phonetextbox.KeyPress += new KeyPressEventHandler(phonetextbox_KeyPress);
+            phonetextbox.Leave += new EventHandler(phonetextbox_Leave);
+
+            certificateofregistrationtextbox.KeyPress += new KeyPressEventHandler(certificateofregistrationtextbox_KeyPress);
+            driverLicenseTextBox.KeyPress += new KeyPressEventHandler(driverLicenseTextBox_KeyPress);
+            STStextBox.KeyPress += new KeyPressEventHandler(STStextBox_KeyPress);
+            StrahovkaTextBox.KeyPress += new KeyPressEventHandler(StrahovkaTextBox_KeyPress);
+
+            lastNameTextBox.KeyPress += new KeyPressEventHandler(lastNameTextBox_KeyPress);
+            lastNameTextBox.Leave += new EventHandler(lastNameTextBox_Leave);
+
+            fiNameTextBox.KeyPress += new KeyPressEventHandler(fiNameTextBox_KeyPress);
+            fiNameTextBox.Leave += new EventHandler(fiNameTextBox_Leave);
+
+            miNameTextBox.KeyPress += new KeyPressEventHandler(miNameTextBox_KeyPress);
+            miNameTextBox.Leave += new EventHandler(miNameTextBox_Leave);
+
+            passportTextBox.KeyPress += new KeyPressEventHandler(passportTextBox_KeyPress);
+
+            protophonTextBox.KeyPress += new KeyPressEventHandler(protophonTextBox_KeyPress);
+            protophonTextBox.Leave += new EventHandler(protophonTextBox_Leave);
+
+            issuedProtocolsTextBox.KeyPress += new KeyPressEventHandler(issuedProtocolsTextBox_KeyPress);
+            issuedProtocolsTextBox.Leave += new EventHandler(issuedProtocolsTextBox_Leave);
+
+            ProtocolNumber.KeyPress += new KeyPressEventHandler(ProtocolNumber_KeyPress);
+            ProtocolNumber.Leave += new EventHandler(ProtocolNumber_Leave);
+            Fine.KeyPress += new KeyPressEventHandler(Fine_KeyPress);
+
+            STStextBox5.KeyPress += new KeyPressEventHandler(STStextBox5_KeyPress);
+            strahTextBox.KeyPress += new KeyPressEventHandler(strahTextBox_KeyPress);
+            PopulateComboBoxes();
         }
+        private void PopulateComboBoxes()
+        {
+            // Должности сотрудников ГАИ
+            var positions = new List<string>
+            {
+                "Инспектор",
+                "Старший инспектор",
+                "Главный инспектор",
+                "Начальник отдела",
+                "Заместитель начальника отдела",
+                "Старший госинспектор",
+                "Госинспектор"
+            };
+
+            // Звания сотрудников ГАИ
+            var ranks = new List<string>
+            {
+                "Младший лейтенант",
+                "Лейтенант",
+                "Старший лейтенант",
+                "Капитан",
+                "Майор",
+                "Подполковник",
+                "Полковник",
+                "Генерал-майор",
+                "Генерал-лейтенант",
+                "Генерал-полковник"
+            };
+            var status = new List<string>
+            {
+                "оплачен",
+                "не оплачен"
+            };
+
+            // Заполняем positionComboBox
+            positioncomboBox.Items.Clear();
+            positioncomboBox.Items.AddRange(positions.ToArray());
+
+            // Заполняем rankComboBox
+            rankcomboBox.Items.Clear();
+            rankcomboBox.Items.AddRange(ranks.ToArray());
+
+
+
+            statuscomboBox.Items.Clear();
+            statuscomboBox.Items.AddRange(status.ToArray());
+        }
+        private void SurnameTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только русские буквы, 'ё', 'Ё' и Backspace
+            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void firstnametextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только русские буквы, 'ё', 'Ё' и Backspace
+            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void middlenametextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только русские буквы, 'ё', 'Ё' и Backspace
+            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void SurnameTextBox_Leave(object sender, EventArgs e)
+        {
+            // Переводим первую букву в заглавную
+            SurnameTextBox.Text = CapitalizeFirstLetter(SurnameTextBox.Text);
+        }
+
+        private void firstnametextbox_Leave(object sender, EventArgs e)
+        {
+            // Переводим первую букву в заглавную
+            firstnametextbox.Text = CapitalizeFirstLetter(firstnametextbox.Text);
+        }
+
+        private void middlenametextbox_Leave(object sender, EventArgs e)
+        {
+            // Переводим первую букву в заглавную
+            middlenametextbox.Text = CapitalizeFirstLetter(middlenametextbox.Text);
+        }
+
+        private string CapitalizeFirstLetter(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return text;
+            }
+
+            return char.ToUpper(text[0]) + text.Substring(1).ToLower();
+        }
+
+        private void passportnumbertextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только цифры и Backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void phonetextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только цифры и Backspace, плюс разрешаем только + в начале
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '+')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void phonetextbox_Leave(object sender, EventArgs e)
+        {
+            // Проверяем, чтобы номер начинался с +7 и содержал еще 10 цифр
+            if (!phonetextbox.Text.StartsWith("+7") || phonetextbox.Text.Length != 12)
+            {
+                MessageBox.Show("Номер телефона должен начинаться с +7 и содержать 10 цифр после +7.");
+                phonetextbox.Focus();
+            }
+        }
+
+        private void certificateofregistrationtextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только цифры и Backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void StrahovkaTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только цифры и Backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void driverLicenseTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только цифры и Backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void STStextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только цифры и Backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        //ГАИ
+        private void lastNameTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только русские буквы, 'ё', 'Ё' и Backspace
+            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void fiNameTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только русские буквы, 'ё', 'Ё' и Backspace
+            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void miNameTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только русские буквы, 'ё', 'Ё' и Backspace
+            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё')
+            {
+                e.Handled = true;
+            }
+        }
+
+
+        private void lastNameTextBox_Leave(object sender, EventArgs e)
+        {
+            lastNameTextBox.Text = CapitalizeFirstLetter(lastNameTextBox.Text);
+        }
+
+        private void fiNameTextBox_Leave(object sender, EventArgs e)
+        {
+            fiNameTextBox.Text = CapitalizeFirstLetter(fiNameTextBox.Text);
+        }
+
+        private void miNameTextBox_Leave(object sender, EventArgs e)
+        {
+            miNameTextBox.Text = CapitalizeFirstLetter(miNameTextBox.Text);
+        }
+        private void passportTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void protophonTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только цифры и Backspace, плюс разрешаем только + в начале
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '+')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void protophonTextBox_Leave(object sender, EventArgs e)
+        {
+            // Проверяем, чтобы номер начинался с +7 и содержал еще 10 цифр
+            if (!protophonTextBox.Text.StartsWith("+7") || protophonTextBox.Text.Length != 12)
+            {
+                MessageBox.Show("Номер телефона должен начинаться с +7 и содержать 10 цифр после +7.");
+                protophonTextBox.Focus();
+            }
+        }
+
+        private void issuedProtocolsTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем ввод только цифр, Backspace и "№" в начале строки
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '№' || issuedProtocolsTextBox.SelectionStart != 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void issuedProtocolsTextBox_Leave(object sender, EventArgs e)
+        {
+            // Добавляем "№", если его нет в начале строки
+            if (!issuedProtocolsTextBox.Text.StartsWith("№"))
+            {
+                issuedProtocolsTextBox.Text = "№" + issuedProtocolsTextBox.Text;
+            }
+        }
+        private void ProtocolNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем ввод только цифр, Backspace и "№" в начале строки
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '№' || ProtocolNumber.SelectionStart != 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+
+        private void ProtocolNumber_Leave(object sender, EventArgs e)
+        {
+            // Проверка, чтобы избежать лишнего пробела
+            if (string.IsNullOrWhiteSpace(ProtocolNumber.Text) || ProtocolNumber.Text.Trim() == "№")
+            {
+                ProtocolNumber.Text = "№";
+            }
+            else if (!ProtocolNumber.Text.StartsWith("№"))
+            {
+                ProtocolNumber.Text = "№" + ProtocolNumber.Text.Trim();
+            }
+        }
+        private void Fine_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только цифры и Backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void STStextBox5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только цифры и Backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void strahTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Разрешаем только цифры и Backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void InitializeDatabase()
         {
             try
@@ -47,7 +402,6 @@ namespace WinFormsApp5
             LoadPoliceman();
             LoadViolations();
             LoadRegistr();
-            LoadProtocol();
         }
         private void LoadDrivers()
         {
@@ -77,7 +431,12 @@ namespace WinFormsApp5
             {
                 AutoDataGridView.Columns["Id"].Visible = false;
             }
+            if (AutoDataGridView.Columns.Contains("Владелец_ID"))
+            {
+                AutoDataGridView.Columns["Владелец_ID"].Visible = false;
+            }
         }
+
         private void LoadPoliceman()
         {
             var PolicemanAdapter = new SQLiteDataAdapter("SELECT * FROM СотрудникГАИ", sqliteConn);
@@ -95,11 +454,22 @@ namespace WinFormsApp5
             var violationTable = new DataTable();
             violationAdapter.Fill(violationTable);
             violationsDataGridView.DataSource = violationTable;
+
+            // Скрытие столбцов "Id", "Авто_Id" и "ГАИ_Сотрудник_ID"
             if (violationsDataGridView.Columns.Contains("Id"))
             {
                 violationsDataGridView.Columns["Id"].Visible = false;
             }
+            if (violationsDataGridView.Columns.Contains("Авто_Id"))
+            {
+                violationsDataGridView.Columns["Авто_Id"].Visible = false;
+            }
+            if (violationsDataGridView.Columns.Contains("ГАИ_Сотрудник_ID"))
+            {
+                violationsDataGridView.Columns["ГАИ_Сотрудник_ID"].Visible = false;
+            }
         }
+
         private void LoadRegistr()
         {
             var registrAdapter = new SQLiteDataAdapter("SELECT * FROM Регистрация", sqliteConn);
@@ -110,14 +480,16 @@ namespace WinFormsApp5
             {
                 RegistrdataGridView.Columns["Id"].Visible = false;
             }
+            if (RegistrdataGridView.Columns.Contains("Авто_ID"))
+            {
+                RegistrdataGridView.Columns["Авто_ID"].Visible = false;
+            }
+            if (RegistrdataGridView.Columns.Contains("Водитель_ID"))
+            {
+                RegistrdataGridView.Columns["Водитель_ID"].Visible = false;
+            }
         }
-        private void LoadProtocol()
-        {
-            var protAdapter = new SQLiteDataAdapter("SELECT * FROM СотрудникПротоколы", sqliteConn);
-            var protTable = new DataTable();
-            protAdapter.Fill(protTable);
-            protocolsDataGridView.DataSource = protTable;
-        }
+
         private bool IsDriverExists(string lastName, string firstName, string middleName, string passportNumber)
         {
             string selectQuery = "SELECT COUNT(*) FROM Водители WHERE Фамилия = @Фамилия AND Имя = @Имя AND Отчество = @Отчество AND НомерПаспорта = @НомерПаспорта";
@@ -139,6 +511,7 @@ namespace WinFormsApp5
             {
                 sqliteConn.Close();
             }
+            Application.Exit(); // Завершить приложение при закрытии Form1            
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -150,34 +523,63 @@ namespace WinFormsApp5
             string lastName = SurnameTextBox.Text.Trim();
             string firstName = firstnametextbox.Text.Trim();
             string middleName = middlenametextbox.Text.Trim();
-            DateTime dateOfBirth = driverDateOfBirthPicker.Value; // Используем значение из DateTimePicker
+            string passportNumber = passportnumbertextbox.Text.Trim();
+            string phone = phonetextbox.Text.Trim();
+            string address = addresstextbox.Text.Trim();
             string certificateOfRegistration = certificateofregistrationtextbox.Text.Trim();
+            string driverLicense = driverLicenseTextBox.Text.Trim();
+            DateTime dateOfBirth = driverDateOfBirthPicker.Value;
 
             string query = "SELECT * FROM Водители WHERE 1=1"; // Начало запроса
 
+            // Условия поиска
             if (!string.IsNullOrEmpty(lastName))
-                query += " AND Фамилия LIKE @lastName";
+                query += " AND Фамилия LIKE '%' || @lastName || '%'";
             if (!string.IsNullOrEmpty(firstName))
-                query += " AND Имя LIKE @firstName";
+                query += " AND Имя LIKE '%' || @firstName || '%'";
             if (!string.IsNullOrEmpty(middleName))
-                query += " AND Отчество LIKE @middleName";
-            if (dateOfBirth != DateTime.MinValue) // Проверка на правильность даты
-                query += " AND ДатаРождения = @dateOfBirth";
+                query += " AND Отчество LIKE '%' || @middleName || '%'";
+            if (!string.IsNullOrEmpty(passportNumber))
+                query += " AND НомерПаспорта LIKE '%' || @passportNumber || '%'";
+            if (!string.IsNullOrEmpty(phone))
+                query += " AND Телефон LIKE '%' || @phone || '%'";
+            if (!string.IsNullOrEmpty(address))
+                query += " AND Адрес LIKE '%' || @address || '%'";
             if (!string.IsNullOrEmpty(certificateOfRegistration))
-                query += " AND СвидетельствоОРегистрации LIKE @certificateOfRegistration";
+                query += " AND СвидетельствоОРегистрации LIKE '%' || @certificateOfRegistration || '%'";
+            if (!string.IsNullOrEmpty(driverLicense))
+                query += " AND ВодительскоеУдостоверение LIKE '%' || @driverLicense || '%'";
+            if (dateOfBirth != DateTime.MinValue)
+                query += " AND ДатаРождения = @dateOfBirth";
 
             using (var cmd = new SQLiteCommand(query, sqliteConn))
             {
+                // Добавление параметров
                 if (!string.IsNullOrEmpty(lastName))
                     cmd.Parameters.AddWithValue("@lastName", lastName);
                 if (!string.IsNullOrEmpty(firstName))
                     cmd.Parameters.AddWithValue("@firstName", firstName);
                 if (!string.IsNullOrEmpty(middleName))
                     cmd.Parameters.AddWithValue("@middleName", middleName);
-                if (dateOfBirth != DateTime.MinValue)
-                    cmd.Parameters.AddWithValue("@dateOfBirth", dateOfBirth.ToString("yyyy-MM-dd"));
+                if (!string.IsNullOrEmpty(passportNumber))
+                    cmd.Parameters.AddWithValue("@passportNumber", passportNumber);
+                if (!string.IsNullOrEmpty(phone))
+                    cmd.Parameters.AddWithValue("@phone", phone);
+                if (!string.IsNullOrEmpty(address))
+                    cmd.Parameters.AddWithValue("@address", address);
                 if (!string.IsNullOrEmpty(certificateOfRegistration))
                     cmd.Parameters.AddWithValue("@certificateOfRegistration", certificateOfRegistration);
+                if (!string.IsNullOrEmpty(driverLicense))
+                    cmd.Parameters.AddWithValue("@driverLicense", driverLicense);
+                if (dateOfBirth != DateTime.MinValue)
+                    cmd.Parameters.AddWithValue("@dateOfBirth", dateOfBirth.ToString("yyyy-MM-dd"));
+
+                // Вывод на консоль для отладки
+                Console.WriteLine("SQL Query: " + query);
+                foreach (SQLiteParameter parameter in cmd.Parameters)
+                {
+                    Console.WriteLine($"{parameter.ParameterName}: {parameter.Value}");
+                }
 
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
@@ -193,12 +595,33 @@ namespace WinFormsApp5
                     {
                         driversDataGridView.DataSource = drivers; // Заполняем DataGridView новыми данными
                                                                   // Выделяем первую строку с данными, если она существует
-                        driversDataGridView.Rows[0].Selected = true;
-                        driversDataGridView.CurrentCell = driversDataGridView.Rows[0].Cells[0];
+                        if (drivers.Rows.Count > 0)
+                        {
+                            try
+                            {
+                                // Убедитесь, что первая строка видима перед установкой текущей ячейки
+                                if (driversDataGridView.Rows[0].Visible)
+                                {
+                                    driversDataGridView.Rows[0].Selected = true;
+                                    driversDataGridView.CurrentCell = driversDataGridView.Rows[0].Cells
+                                        .Cast<DataGridViewCell>()
+                                        .First(cell => cell.Visible); // Установите текущую видимую ячейку
+                                }
+                            }
+                            catch (InvalidOperationException ex)
+                            {
+                                // Обработка ошибки
+                                MessageBox.Show("Ошибка при выборе текущей ячейки: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
+
                     }
                 }
             }
         }
+
+
         private void Adddriver_Click_1(object sender, EventArgs e)
         {
             string lastName = SurnameTextBox.Text.Trim();
@@ -211,10 +634,14 @@ namespace WinFormsApp5
             string driverLicense = driverLicenseTextBox.Text.Trim();
             string dateOfBirth = driverDateOfBirthPicker.Value.ToString("yyyy-MM-dd");
 
-            // Объединение имени в полное имя
-            string fullName = string.IsNullOrEmpty(middleName) ?
-                $"{lastName} {firstName}" :
-                $"{lastName} {firstName.Substring(0, 1)}. {middleName.Substring(0, 1)}.";
+            // Проверяем, чтобы все поля были заполнены
+            if (string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(middleName) ||
+                string.IsNullOrEmpty(passportNumber) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(address) ||
+                string.IsNullOrEmpty(certificateOfRegistration) || string.IsNullOrEmpty(driverLicense))
+            {
+                MessageBox.Show("Пожалуйста, заполните все обязательные поля.");
+                return;
+            }
 
             // Проверяем на уникальность
             if (IsDriverExists(lastName, firstName, middleName, passportNumber))
@@ -224,15 +651,14 @@ namespace WinFormsApp5
             }
 
             // SQL для вставки данных
-            string insertDriver = "INSERT INTO Водители (ПолноеИмя, Фамилия, Имя, Отчество, НомерПаспорта, Телефон, Адрес, СвидетельствоОРегистрации, ВодительскоеУдостоверение, ДатаРождения) " +
-                                  "VALUES (@ПолноеИмя, @Фамилия, @Имя, @Отчество, @НомерПаспорта, @Телефон, @Адрес, @СвидетельствоОРегистрации, @ВодительскоеУдостоверение, @ДатаРождения)";
+            string insertDriver = "INSERT INTO Водители (Фамилия, Имя, Отчество, НомерПаспорта, Телефон, Адрес, СвидетельствоОРегистрации, ВодительскоеУдостоверение, ДатаРождения) " +
+                                  "VALUES (@Фамилия, @Имя, @Отчество, @НомерПаспорта, @Телефон, @Адрес, @СвидетельствоОРегистрации, @ВодительскоеУдостоверение, @ДатаРождения)";
 
             try
             {
                 using (var cmd = new SQLiteCommand(insertDriver, sqliteConn))
                 {
                     // Добавление параметров
-                    cmd.Parameters.AddWithValue("@ПолноеИмя", fullName);
                     cmd.Parameters.AddWithValue("@Фамилия", lastName);
                     cmd.Parameters.AddWithValue("@Имя", firstName);
                     cmd.Parameters.AddWithValue("@Отчество", middleName);
@@ -245,6 +671,7 @@ namespace WinFormsApp5
 
                     cmd.ExecuteNonQuery(); // Выполняем запрос
                 }
+                MessageBox.Show("Водитель успешно добавлен!");
             }
             catch (Exception ex)
             {
@@ -254,6 +681,7 @@ namespace WinFormsApp5
             LoadDrivers(); // Перезагрузить данные
         }
 
+
         private void Editdriver_Click_1(object sender, EventArgs e)
         {
             var selectedRows = driversDataGridView.SelectedRows; // Здесь предполагаем, что это ваш DataGridView для водителей
@@ -261,7 +689,7 @@ namespace WinFormsApp5
 
             foreach (DataGridViewRow row in selectedRows)
             {
-                int driverId = Convert.ToInt32(row.Cells["Идентификатор"].Value); // Получаем Идентификатор водителя
+                int driverId = Convert.ToInt32(row.Cells["Id"].Value); // Получаем Идентификатор водителя
 
                 string updateDriver = "UPDATE Водители SET " +
                                       "Фамилия = COALESCE(NULLIF(@Фамилия, ''), Фамилия), " +
@@ -273,11 +701,11 @@ namespace WinFormsApp5
                                       "СвидетельствоОРегистрации = COALESCE(NULLIF(@СвидетельствоОРегистрации, ''), СвидетельствоОРегистрации), " +
                                       "ВодительскоеУдостоверение = COALESCE(NULLIF(@ВодительскоеУдостоверение, ''), ВодительскоеУдостоверение), " +
                                       "ДатаРождения = COALESCE(NULLIF(@ДатаРождения, ''), ДатаРождения) " +
-                                      "WHERE Идентификатор = @Идентификатор";
+                                      "WHERE Id = @Id";
 
                 using (var cmd = new SQLiteCommand(updateDriver, sqliteConn))
                 {
-                    cmd.Parameters.AddWithValue("@Идентификатор", driverId);
+                    cmd.Parameters.AddWithValue("@Id", driverId);
                     cmd.Parameters.AddWithValue("@Фамилия", SurnameTextBox.Text);
                     cmd.Parameters.AddWithValue("@Имя", firstnametextbox.Text);
                     cmd.Parameters.AddWithValue("@Отчество", middlenametextbox.Text);
@@ -319,56 +747,95 @@ namespace WinFormsApp5
                 LoadData(); // Перезагрузить данные
             }
         }
-
-        private void driversDataGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        private void driversDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // Убедитесь, что вы кликнули по строке
+            if (e.RowIndex >= 0) // Убедитесь, что кликнули по строке
             {
                 DataGridViewRow row = this.driversDataGridView.Rows[e.RowIndex];
 
-                // Здесь можете создать и показать форму с полными данными
-                var driverDetailsForm = new DriverDetailsForm(
-                    row.Cells["Фамилия"].Value.ToString(),
-                    row.Cells["Имя"].Value.ToString(),
-                    row.Cells["Отчество"].Value.ToString(),
-                    row.Cells["НомерПаспорта"].Value.ToString(),
-                    row.Cells["Телефон"].Value.ToString(),
-                    row.Cells["Адрес"].Value.ToString(),
-                    row.Cells["СвидетельствоОРегистрации"].Value.ToString(),
-                    row.Cells["ВодительскоеУдостоверение"].Value.ToString(),
-                    Convert.ToDateTime(row.Cells["ДатаРождения"].Value)
-                );
-
-                driverDetailsForm.Show();
+                // Заполнение соответствующих текстовых полей
+                SurnameTextBox.Text = row.Cells["Фамилия"].Value.ToString();
+                firstnametextbox.Text = row.Cells["Имя"].Value.ToString();
+                middlenametextbox.Text = row.Cells["Отчество"].Value.ToString();
+                passportnumbertextbox.Text = row.Cells["НомерПаспорта"].Value.ToString();
+                phonetextbox.Text = row.Cells["Телефон"].Value.ToString();
+                addresstextbox.Text = row.Cells["Адрес"].Value.ToString();
+                certificateofregistrationtextbox.Text = row.Cells["СвидетельствоОРегистрации"].Value.ToString();
+                driverLicenseTextBox.Text = row.Cells["ВодительскоеУдостоверение"].Value.ToString();
+                driverDateOfBirthPicker.Value = Convert.ToDateTime(row.Cells["ДатаРождения"].Value);
             }
+        }
+
+
+
+        private void driversDataGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            string licensePlate = PlatetextBox.Text.Trim();
             string certificateOfRegistration = STStextBox.Text.Trim();
+            string make = MakeTextBox.Text.Trim();
+            string model = ModeltextBox.Text.Trim();
+            string licensePlate = PlatetextBox.Text.Trim();
+            int year;
+            bool isYearParsed = int.TryParse(yeartextBox.Text, out year);
+            string insurance = StrahovkaTextBox.Text.Trim();
 
-            string searchQuery = "SELECT a.СвидетельствоОРегистрации, a.Марка, a.Модель, a.НомернойЗнак, a.Год, a.Владелец " +
+            string searchQuery = "SELECT a.СвидетельствоОРегистрации, a.Марка, a.Модель, a.НомернойЗнак, a.Год, a.Владелец, a.Страхование " +
                                  "FROM Авто a WHERE 1=1"; // Начинаем с условия "1=1"
 
-            if (!string.IsNullOrEmpty(licensePlate))
-            {
-                searchQuery += " AND a.НомернойЗнак LIKE '%' || @НомернойЗнак || '%'";
-            }
             if (!string.IsNullOrEmpty(certificateOfRegistration))
             {
                 searchQuery += " AND a.СвидетельствоОРегистрации LIKE '%' || @СвидетельствоОРегистрации || '%'";
             }
+            if (!string.IsNullOrEmpty(make))
+            {
+                searchQuery += " AND a.Марка LIKE '%' || @Марка || '%'";
+            }
+            if (!string.IsNullOrEmpty(model))
+            {
+                searchQuery += " AND a.Модель LIKE '%' || @Модель || '%'";
+            }
+            if (!string.IsNullOrEmpty(licensePlate))
+            {
+                searchQuery += " AND a.НомернойЗнак LIKE '%' || @НомернойЗнак || '%'";
+            }
+            if (isYearParsed)
+            {
+                searchQuery += " AND a.Год = @Год";
+            }
+            if (!string.IsNullOrEmpty(insurance))
+            {
+                searchQuery += " AND a.Страхование LIKE '%' || @Страхование || '%'";
+            }
 
             using (var cmd = new SQLiteCommand(searchQuery, sqliteConn))
             {
+                if (!string.IsNullOrEmpty(certificateOfRegistration))
+                {
+                    cmd.Parameters.AddWithValue("@СвидетельствоОРегистрации", certificateOfRegistration);
+                }
+                if (!string.IsNullOrEmpty(make))
+                {
+                    cmd.Parameters.AddWithValue("@Марка", make);
+                }
+                if (!string.IsNullOrEmpty(model))
+                {
+                    cmd.Parameters.AddWithValue("@Модель", model);
+                }
                 if (!string.IsNullOrEmpty(licensePlate))
                 {
                     cmd.Parameters.AddWithValue("@НомернойЗнак", licensePlate);
                 }
-                if (!string.IsNullOrEmpty(certificateOfRegistration))
+                if (isYearParsed)
                 {
-                    cmd.Parameters.AddWithValue("@СвидетельствоОРегистрации", certificateOfRegistration);
+                    cmd.Parameters.AddWithValue("@Год", year);
+                }
+                if (!string.IsNullOrEmpty(insurance))
+                {
+                    cmd.Parameters.AddWithValue("@Страхование", insurance);
                 }
 
                 using (var adapter = new SQLiteDataAdapter(cmd))
@@ -380,6 +847,8 @@ namespace WinFormsApp5
             }
         }
 
+
+
         private void AddCar_Click_1(object sender, EventArgs e)
         {
             // Получаем данные с форм
@@ -387,68 +856,50 @@ namespace WinFormsApp5
             string make = MakeTextBox.Text.Trim();
             string model = ModeltextBox.Text.Trim();
             string licensePlate = PlatetextBox.Text.Trim();
+            string insurance = StrahovkaTextBox.Text.Trim();
             int year;
 
-            // Проверка, что год введен корректно
-            if (!int.TryParse(yeartextBox.Text, out year))
+            // Проверка, что все поля заполнены
+            if (string.IsNullOrEmpty(certificateOfRegistration) || string.IsNullOrEmpty(make) ||
+                string.IsNullOrEmpty(model) || string.IsNullOrEmpty(licensePlate) ||
+                string.IsNullOrEmpty(insurance) || !int.TryParse(yeartextBox.Text, out year))
             {
-                MessageBox.Show("Пожалуйста, введите корректный год.");
+                MessageBox.Show("Пожалуйста, заполните все поля корректно.");
                 return;
             }
 
-            string insurance = StrahovkaTextBox.Text.Trim();
-
             try
             {
-                // Получаем полное имя владельца по свидетельству о регистрации
-                string ownerQuery = "SELECT ПолноеИмя FROM Водители WHERE СвидетельствоОРегистрации = @СвидетельствоОРегистрации";
-                string fullName = string.Empty; // Переменная для хранения полного имени владельца
+                // SQL для вставки данных об автомобиле и определения владельца
+                string insertCarQuery = @"
+        INSERT INTO Авто (СвидетельствоОРегистрации, Марка, Модель, НомернойЗнак, Год, Владелец, Владелец_ID, Страхование) 
+        VALUES (@СвидетельствоОРегистрации, @Марка, @Модель, @НомернойЗнак, @Год, 
+                (SELECT Фамилия || ' ' || SUBSTR(Имя, 1, 1) || '. ' || IFNULL(SUBSTR(Отчество, 1, 1) || '.', '') 
+                 FROM Водители WHERE СвидетельствоОРегистрации = @СвидетельствоОРегистрации), 
+                (SELECT Id FROM Водители WHERE СвидетельствоОРегистрации = @СвидетельствоОРегистрации), 
+                @Страхование)";
 
-                using (var ownerCmd = new SQLiteCommand(ownerQuery, sqliteConn))
+                using (var insertCmd = new SQLiteCommand(insertCarQuery, sqliteConn))
                 {
-                    ownerCmd.Parameters.AddWithValue("@СвидетельствоОРегистрации", certificateOfRegistration);
-                    object result = ownerCmd.ExecuteScalar();
+                    insertCmd.Parameters.AddWithValue("@СвидетельствоОРегистрации", certificateOfRegistration);
+                    insertCmd.Parameters.AddWithValue("@Марка", make);
+                    insertCmd.Parameters.AddWithValue("@Модель", model);
+                    insertCmd.Parameters.AddWithValue("@НомернойЗнак", licensePlate);
+                    insertCmd.Parameters.AddWithValue("@Год", year);
+                    insertCmd.Parameters.AddWithValue("@Страхование", insurance);
 
-                    if (result != null)
-                    {
-                        fullName = result.ToString(); // Получаем полное имя владельца
-                    }
+                    insertCmd.ExecuteNonQuery(); // Выполняем запрос
                 }
 
-                // Проверяем, что владелец найден
-                if (!string.IsNullOrEmpty(fullName))
-                {
-                    // SQL для вставки данных об автомобиле
-                    string insertCarQuery = "INSERT INTO Авто (СвидетельствоОРегистрации, Марка, Модель, НомернойЗнак, Год, Владелец, Страхование) " +
-                                             "VALUES (@СвидетельствоОРегистрации, @Марка, @Модель, @НомернойЗнак, @Год, @Владелец, @Страхование)";
-
-                    using (var insertCmd = new SQLiteCommand(insertCarQuery, sqliteConn))
-                    {
-                        insertCmd.Parameters.AddWithValue("@СвидетельствоОРегистрации", certificateOfRegistration);
-                        insertCmd.Parameters.AddWithValue("@Марка", make);
-                        insertCmd.Parameters.AddWithValue("@Модель", model);
-                        insertCmd.Parameters.AddWithValue("@НомернойЗнак", licensePlate);
-                        insertCmd.Parameters.AddWithValue("@Год", year);
-                        insertCmd.Parameters.AddWithValue("@Владелец", fullName); // Используем найденное полное имя владельца
-                        insertCmd.Parameters.AddWithValue("@Страхование", insurance);
-
-                        insertCmd.ExecuteNonQuery(); // Выполняем запрос
-                    }
-
-                    MessageBox.Show("Автомобиль успешно добавлен!");
-                }
-                else
-                {
-                    MessageBox.Show("Владелец с указанным свидетельством о регистрации не найден.");
-                }
+                MessageBox.Show("Автомобиль успешно добавлен!");
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при добавлении автомобиля: {ex.Message}");
             }
+
+            LoadAuto();
         }
-
-
         private void EditCar_Click_1(object sender, EventArgs e)
         {
             var selectedRows = AutoDataGridView.SelectedRows;
@@ -528,44 +979,100 @@ namespace WinFormsApp5
             LoadDrivers();
         }
 
-        private void AutoDataGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        private void AutoDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0) // Убедитесь, что вы кликнули по строке
             {
                 DataGridViewRow row = this.AutoDataGridView.Rows[e.RowIndex];
 
-                // Получаем данные для создания формы деталей автомобиля
+                // Получаем данные для заполнения текстовых полей
                 string certificateOfRegistration = row.Cells["СвидетельствоОРегистрации"].Value.ToString();
                 string make = row.Cells["Марка"].Value.ToString();
                 string model = row.Cells["Модель"].Value.ToString();
                 string licensePlate = row.Cells["НомернойЗнак"].Value.ToString();
                 int year = Convert.ToInt32(row.Cells["Год"].Value);
-                string ownerFullName = row.Cells["Владелец"].Value.ToString(); // Обратите внимание на Владелец
+                string ownerFullName = row.Cells["Владелец"].Value.ToString();
+                string insurance = row.Cells["Страхование"].Value?.ToString() ?? string.Empty; // Предполагается, что есть колонка Страхование
 
-                // Создайте и покажите форму с полными данными
-                var autoDetailsForm = new AutoDetailsForm(certificateOfRegistration, make, model, licensePlate, year, ownerFullName);
-                autoDetailsForm.Show();
+                // Заполняем текстовые поля на форме
+                STStextBox.Text = certificateOfRegistration;
+                MakeTextBox.Text = make;
+                ModeltextBox.Text = model;
+                PlatetextBox.Text = licensePlate;
+                yeartextBox.Text = year.ToString();
+                OwnerTextBox.Text = ownerFullName;
+                StrahovkaTextBox.Text = insurance; // Добавляем заполнение поля StrahovkaTextBox
             }
+        }
+
+
+
+
+        private void AutoDataGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void SearchPolice_Click(object sender, EventArgs e)
         {
             string lastName = lastNameTextBox.Text.Trim();
-            string rank = rankTextBox.Text.Trim();
+            string firstName = fiNameTextBox.Text.Trim();
+            string middleName = miNameTextBox.Text.Trim();
+            string passportNumber = passportTextBox.Text.Trim();
+            string phone = protophonTextBox.Text.Trim();
+            string address = addrTextBox.Text.Trim();
+            string rank = rankcomboBox.SelectedItem?.ToString() ?? string.Empty;
+            string position = positioncomboBox.SelectedItem?.ToString() ?? string.Empty;
+            string dateOfBirth = DateOfBirthPicker.Value.ToString("yyyy-MM-dd");
+            string issuedProtocol = issuedProtocolsTextBox.Text.Trim();
 
             string query = "SELECT * FROM СотрудникГАИ WHERE 1=1"; // Начало запроса
 
+            // Условия поиска
             if (!string.IsNullOrEmpty(lastName))
-                query += " AND Фамилия LIKE @lastName";
+                query += " AND Фамилия LIKE '%' || @lastName || '%'";
+            if (!string.IsNullOrEmpty(firstName))
+                query += " AND Имя LIKE '%' || @firstName || '%'";
+            if (!string.IsNullOrEmpty(middleName))
+                query += " AND Отчество LIKE '%' || @middleName || '%'";
+            if (!string.IsNullOrEmpty(passportNumber))
+                query += " AND НомерПаспорта LIKE '%' || @passportNumber || '%'";
+            if (!string.IsNullOrEmpty(phone))
+                query += " AND Телефон LIKE '%' || @phone || '%'";
+            if (!string.IsNullOrEmpty(address))
+                query += " AND Адрес LIKE '%' || @address || '%'";
             if (!string.IsNullOrEmpty(rank))
-                query += " AND Звание = @rank";
+                query += " AND Звание LIKE '%' || @rank || '%'";
+            if (!string.IsNullOrEmpty(position))
+                query += " AND Должность LIKE '%' || @position || '%'";
+            if (DateOfBirthPicker.Checked) // Проверка, если дата рождения указана
+                query += " AND ДатаРождения = @dateOfBirth";
+            if (!string.IsNullOrEmpty(issuedProtocol))
+                query += " AND ВыписанныйПротокол LIKE '%' || @issuedProtocol || '%'";
 
             using (var cmd = new SQLiteCommand(query, sqliteConn))
             {
+                // Добавление параметров
                 if (!string.IsNullOrEmpty(lastName))
                     cmd.Parameters.AddWithValue("@lastName", lastName);
+                if (!string.IsNullOrEmpty(firstName))
+                    cmd.Parameters.AddWithValue("@firstName", firstName);
+                if (!string.IsNullOrEmpty(middleName))
+                    cmd.Parameters.AddWithValue("@middleName", middleName);
+                if (!string.IsNullOrEmpty(passportNumber))
+                    cmd.Parameters.AddWithValue("@passportNumber", passportNumber);
+                if (!string.IsNullOrEmpty(phone))
+                    cmd.Parameters.AddWithValue("@phone", phone);
+                if (!string.IsNullOrEmpty(address))
+                    cmd.Parameters.AddWithValue("@address", address);
                 if (!string.IsNullOrEmpty(rank))
                     cmd.Parameters.AddWithValue("@rank", rank);
+                if (!string.IsNullOrEmpty(position))
+                    cmd.Parameters.AddWithValue("@position", position);
+                if (DateOfBirthPicker.Checked)
+                    cmd.Parameters.AddWithValue("@dateOfBirth", dateOfBirth);
+                if (!string.IsNullOrEmpty(issuedProtocol))
+                    cmd.Parameters.AddWithValue("@issuedProtocol", issuedProtocol);
 
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
@@ -585,6 +1092,7 @@ namespace WinFormsApp5
             }
         }
 
+
         private void Addpolice_Click_1(object sender, EventArgs e)
         {
             string lastName = lastNameTextBox.Text.Trim();
@@ -593,28 +1101,81 @@ namespace WinFormsApp5
             string passportNumber = passportTextBox.Text.Trim();
             string phone = protophonTextBox.Text.Trim();
             string address = addrTextBox.Text.Trim();
-            string rank = rankTextBox.Text.Trim();
-            string position = positionTextBox.Text.Trim();
+            string rank = rankcomboBox.SelectedItem?.ToString();
+            string position = positioncomboBox.SelectedItem?.ToString();
             string dateOfBirth = DateOfBirthPicker.Value.ToString("yyyy-MM-dd");
-            string issuedProtocols = issuedProtocolsTextBox.Text.Trim(); // Получаем IssuedProtocols
+            string protocolNumber = issuedProtocolsTextBox.Text.Trim();
 
-            // Объединение имени в полное имя
-            string fullName = string.IsNullOrEmpty(middleName) ?
-                $"{lastName} {firstName}" :
-                $"{lastName} {firstName.Substring(0, 1)}. {middleName.Substring(0, 1)}.";
+            // Проверяем, чтобы все поля были заполнены
+            if (string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(middleName) ||
+                string.IsNullOrEmpty(passportNumber) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(address) ||
+                string.IsNullOrEmpty(rank) || string.IsNullOrEmpty(position) || string.IsNullOrEmpty(protocolNumber))
+            {
+                MessageBox.Show("Пожалуйста, заполните все обязательные поля.");
+                return;
+            }
+
+            // Проверка на уникальность сотрудника по ФИО и номеру паспорта
+            string checkUniqueQuery = "SELECT COUNT(*) FROM СотрудникГАИ WHERE Фамилия = @lastName AND Имя = @firstName AND Отчество = @middleName AND НомерПаспорта = @passportNumber";
+            int count = 0;
+
+            try
+            {
+                using (var checkCmd = new SQLiteCommand(checkUniqueQuery, sqliteConn))
+                {
+                    checkCmd.Parameters.AddWithValue("@lastName", lastName);
+                    checkCmd.Parameters.AddWithValue("@firstName", firstName);
+                    checkCmd.Parameters.AddWithValue("@middleName", middleName);
+                    checkCmd.Parameters.AddWithValue("@passportNumber", passportNumber);
+
+                    count = Convert.ToInt32(checkCmd.ExecuteScalar());
+                }
+
+                if (count > 0)
+                {
+                    MessageBox.Show("Сотрудник с такими ФИО и номером паспорта уже существует.");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при проверке уникальности сотрудника: {ex.Message}");
+                return;
+            }
+
+            // Проверка на уникальность выписанного протокола
+            string checkProtocolQuery = "SELECT COUNT(*) FROM СотрудникГАИ WHERE ВыписанныйПротокол = @protocolNumber";
+            int protocolCount = 0;
+
+            try
+            {
+                using (var protocolCmd = new SQLiteCommand(checkProtocolQuery, sqliteConn))
+                {
+                    protocolCmd.Parameters.AddWithValue("@protocolNumber", protocolNumber);
+                    protocolCount = Convert.ToInt32(protocolCmd.ExecuteScalar());
+                }
+
+                if (protocolCount > 0)
+                {
+                    MessageBox.Show("Протокол с таким номером уже выписан.");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при проверке уникальности протокола: {ex.Message}");
+                return;
+            }
 
             // SQL для вставки данных
-            string insertPolice = "INSERT INTO СотрудникГАИ (ПолноеИмя, Фамилия, Имя, Отчество, " +
-                                  "НомерПаспорта, Телефон, Адрес, ДатаРождения, Звание, Должность) " +
-                                  "VALUES (@fullName, @lastName, @firstName, @middleName, " +
-                                  "@passportNumber, @phone, @address, @dateOfBirth, @rank, @position)";
+            string insertPolice = "INSERT INTO СотрудникГАИ (Фамилия, Имя, Отчество, НомерПаспорта, Телефон, Адрес, ДатаРождения, Звание, Должность, ВыписанныйПротокол) " +
+                                  "VALUES (@lastName, @firstName, @middleName, @passportNumber, @phone, @address, @dateOfBirth, @rank, @position, @protocolNumber)";
 
             try
             {
                 using (var cmd = new SQLiteCommand(insertPolice, sqliteConn))
                 {
                     // Добавление параметров
-                    cmd.Parameters.AddWithValue("@fullName", fullName);
                     cmd.Parameters.AddWithValue("@lastName", lastName);
                     cmd.Parameters.AddWithValue("@firstName", firstName);
                     cmd.Parameters.AddWithValue("@middleName", middleName);
@@ -624,8 +1185,10 @@ namespace WinFormsApp5
                     cmd.Parameters.AddWithValue("@dateOfBirth", dateOfBirth);
                     cmd.Parameters.AddWithValue("@rank", rank);
                     cmd.Parameters.AddWithValue("@position", position);
+                    cmd.Parameters.AddWithValue("@protocolNumber", protocolNumber);
                     cmd.ExecuteNonQuery(); // Выполняем запрос
                 }
+                MessageBox.Show("Сотрудник успешно добавлен!");
             }
             catch (Exception ex)
             {
@@ -634,6 +1197,10 @@ namespace WinFormsApp5
 
             LoadPoliceman(); // Перезагрузить данные
         }
+
+
+
+
 
         private void EditPolice_Click_1(object sender, EventArgs e)
         {
@@ -653,7 +1220,8 @@ namespace WinFormsApp5
                                       "Адрес = COALESCE(NULLIF(@address, ''), Адрес), " +
                                       "ДатаРождения = COALESCE(NULLIF(@dateOfBirth, ''), ДатаРождения), " +
                                       "Звание = COALESCE(NULLIF(@rank, ''), Звание), " +
-                                      "Должность = COALESCE(NULLIF(@position, ''), Должность) " +
+                                      "Должность = COALESCE(NULLIF(@position, ''), Должность), " +
+                                      "ВыписанныйПротокол = COALESCE(NULLIF(@protocolNumber, ''), ВыписанныйПротокол) " +
                                       "WHERE Id = @id";
 
                 using (var cmd = new SQLiteCommand(updatePolice, sqliteConn))
@@ -666,15 +1234,16 @@ namespace WinFormsApp5
                     cmd.Parameters.AddWithValue("@phone", protophonTextBox.Text);
                     cmd.Parameters.AddWithValue("@address", addrTextBox.Text);
                     cmd.Parameters.AddWithValue("@dateOfBirth", DateOfBirthPicker.Value.ToString("yyyy-MM-dd"));
-                    cmd.Parameters.AddWithValue("@rank", rankTextBox.Text);
-                    cmd.Parameters.AddWithValue("@position", positionTextBox.Text);
-                    //System.Data.SQLite.SQLiteException: "SQL logic error near "WHERE": syntax error"
+                    cmd.Parameters.AddWithValue("@rank", rankcomboBox.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@position", positioncomboBox.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@protocolNumber", issuedProtocolsTextBox.Text.Trim());
                     cmd.ExecuteNonQuery();
                 }
             }
 
             LoadPoliceman(); // Перезагрузить данные
         }
+
 
         private void DeletePolice_Click_1(object sender, EventArgs e)
         {
@@ -706,7 +1275,7 @@ namespace WinFormsApp5
             LoadPoliceman();
         }
 
-        private void PolicemanDataGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        private void PolicemanDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return; // Отключаем обработку заголовков
 
@@ -723,32 +1292,67 @@ namespace WinFormsApp5
             DateTime dateOfBirth = Convert.ToDateTime(selectedRow.Cells["ДатаРождения"].Value);
             string rank = selectedRow.Cells["Звание"].Value.ToString();
             string position = selectedRow.Cells["Должность"].Value.ToString();
+            string protocol = selectedRow.Cells["ВыписанныйПротокол"].Value.ToString();
 
-            // Создаем экземпляр PolicemanForm и передаем данные
-            PolicemanForm policemanForm = new PolicemanForm(lastName, firstName, middleName, passportNumber, phone, address, dateOfBirth, rank, position);
+            // Заполняем текстовые поля на форме
+            lastNameTextBox.Text = lastName;
+            fiNameTextBox.Text = firstName;
+            miNameTextBox.Text = middleName;
+            passportTextBox.Text = passportNumber;
+            protophonTextBox.Text = phone;
+            addrTextBox.Text = address;
+            DateOfBirthPicker.Value = dateOfBirth;
+            rankcomboBox.SelectedItem = rank;
+            positioncomboBox.SelectedItem = position;
+            issuedProtocolsTextBox.Text = protocol;
+        }
 
-            // Открываем форму как модальную
-            policemanForm.ShowDialog();
+
+
+
+        private void PolicemanDataGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void SearchViol_Click_1(object sender, EventArgs e)
         {
+            string protocolNumber = ProtocolNumber.Text.Trim();
+            DateTime violationDate = VioldateTimePicker.Value;
+            string violation = Description.Text.Trim();
+            string info = Info.Text.Trim();
             string licensePlate = Licenseplate.Text.Trim();
-            DateTime violationDate = VioldateTimePicker.Value; // Используем значение из DateTimePicker
+            string status = statuscomboBox.SelectedItem.ToString(); // Получаем выбранный статус штрафа
 
             string query = "SELECT * FROM Нарушения WHERE 1=1"; // Начало запроса
 
+            if (!string.IsNullOrEmpty(protocolNumber))
+                query += " AND НомерПротокола LIKE @protocolNumber";
+            if (violationDate != DateTime.MinValue)
+                query += " AND ДатаНарушения = @violationDate";
+            if (!string.IsNullOrEmpty(violation))
+                query += " AND Нарушение LIKE @violation";
+            if (!string.IsNullOrEmpty(info))
+                query += " AND Описание LIKE @info";
             if (!string.IsNullOrEmpty(licensePlate))
                 query += " AND НомернойЗнак LIKE @licensePlate";
-            if (violationDate != DateTime.MinValue) // Проверка на правильность даты
-                query += " AND ДатаНарушения = @violationDate";
+            if (!string.IsNullOrEmpty(status))
+                query += " AND СтатусШтрафа LIKE @status";
 
             using (var cmd = new SQLiteCommand(query, sqliteConn))
             {
-                if (!string.IsNullOrEmpty(licensePlate))
-                    cmd.Parameters.AddWithValue("@licensePlate", licensePlate);
+                if (!string.IsNullOrEmpty(protocolNumber))
+                    cmd.Parameters.AddWithValue("@protocolNumber", "%" + protocolNumber + "%");
                 if (violationDate != DateTime.MinValue)
                     cmd.Parameters.AddWithValue("@violationDate", violationDate.ToString("yyyy-MM-dd"));
+                if (!string.IsNullOrEmpty(violation))
+                    cmd.Parameters.AddWithValue("@violation", "%" + violation + "%");
+                if (!string.IsNullOrEmpty(info))
+                    cmd.Parameters.AddWithValue("@info", "%" + info + "%");
+                if (!string.IsNullOrEmpty(licensePlate))
+                    cmd.Parameters.AddWithValue("@licensePlate", "%" + licensePlate + "%");
+                if (!string.IsNullOrEmpty(status))
+                    cmd.Parameters.AddWithValue("@status", "%" + status + "%");
 
                 using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
@@ -767,33 +1371,119 @@ namespace WinFormsApp5
             }
         }
 
+
+
         private void button5_Click_1(object sender, EventArgs e)
         {
-            string licensePlate = Licenseplate.Text.Trim();
+            string protocolNumber = ProtocolNumber.Text.Trim();
+            if (!protocolNumber.StartsWith("№"))
+            {
+                protocolNumber = "№" + protocolNumber;
+            }
+
             DateTime violationDate = VioldateTimePicker.Value;
-            string description = Description.Text.Trim();
-            decimal fine = Convert.ToDecimal(Fine.Text.Trim());
-            string referenceInfo = Info.Text.Trim();
+            string violation = Description.Text.Trim();
+            string fineText = Fine.Text.Trim();
+            string description = Info.Text.Trim();
+            string licensePlate = Licenseplate.Text.Trim();
+            string status = statuscomboBox.SelectedItem.ToString(); // Получаем выбранный статус штрафа
+            string temporaryInspector = "Temporary"; // Временное значение для поля ВыписалПротокол
+
+            // Проверка, чтобы все поля были заполнены
+            if (string.IsNullOrEmpty(protocolNumber) || string.IsNullOrEmpty(violation) || string.IsNullOrEmpty(fineText) ||
+                string.IsNullOrEmpty(description) || string.IsNullOrEmpty(licensePlate))
+            {
+                MessageBox.Show("Пожалуйста, заполните все обязательные поля.");
+                return;
+            }
+
+            // Проверка корректности ввода штрафа
+            decimal fine;
+            if (!decimal.TryParse(fineText, out fine))
+            {
+                MessageBox.Show("Пожалуйста, введите корректный штраф.");
+                return;
+            }
+
+            // Проверка наличия протокола в таблице Нарушения
+            string checkViolationProtocolQuery = "SELECT COUNT(*) FROM Нарушения WHERE НомерПротокола = @ProtocolNumber";
+            int violationProtocolCount = 0;
+
+            try
+            {
+                using (var checkCmd = new SQLiteCommand(checkViolationProtocolQuery, sqliteConn))
+                {
+                    checkCmd.Parameters.AddWithValue("@ProtocolNumber", protocolNumber);
+                    violationProtocolCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+                }
+
+                if (violationProtocolCount > 0)
+                {
+                    MessageBox.Show("Протокол с таким номером уже существует.");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при проверке протокола: {ex.Message}");
+                return;
+            }
+
+            // Проверка наличия автомобиля в таблице Авто
+            string checkCarQuery = "SELECT Id, Владелец FROM Авто WHERE НомернойЗнак = @LicensePlate";
+            int carId = 0;
+            string owner = "";
+
+            try
+            {
+                using (var checkCmd = new SQLiteCommand(checkCarQuery, sqliteConn))
+                {
+                    checkCmd.Parameters.AddWithValue("@LicensePlate", licensePlate);
+                    using (var reader = checkCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            carId = reader.GetInt32(0);
+                            owner = reader.GetString(1);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Автомобиль с таким номерным знаком не существует.");
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при проверке автомобиля: {ex.Message}");
+                return;
+            }
 
             // SQL для вставки данных
-            string insertViolation = "INSERT INTO Нарушения (НомерПротокола, ДатаНарушения, Описание, Штраф, СправочнаяИнформация, НомернойЗнак, Водитель) " +
-                                     "VALUES (@ProtocolNumber, @ViolationDate, @Description, @Fine, @ReferenceInfo, @LicensePlate, " +
-                                     "(SELECT ПолноеИмя FROM Водители WHERE ПолноеИмя = (SELECT Владелец FROM Авто WHERE НомернойЗнак = @LicensePlate)))";
+            string insertViolation = "INSERT INTO Нарушения (НомерПротокола, ДатаНарушения, Нарушение, НомернойЗнак, Штраф, Описание, СтатусШтрафа, Водитель, ВыписалПротокол, Авто_Id, ГАИ_Сотрудник_ID) " +
+                                     "VALUES (@ProtocolNumber, @ViolationDate, @Violation, @LicensePlate, @FineText, @Description, @Status, @Owner, @TemporaryInspector, @CarId, " +
+                                     "(SELECT Id FROM СотрудникГАИ WHERE ВыписанныйПротокол = @ProtocolNumber))";
 
             try
             {
                 using (var cmd = new SQLiteCommand(insertViolation, sqliteConn))
                 {
                     // Добавление параметров
-                    cmd.Parameters.AddWithValue("@ProtocolNumber", ProtocolNumber.Text.Trim());
+                    cmd.Parameters.AddWithValue("@ProtocolNumber", protocolNumber);
                     cmd.Parameters.AddWithValue("@ViolationDate", violationDate.ToString("yyyy-MM-dd"));
-                    cmd.Parameters.AddWithValue("@Description", description);
-                    cmd.Parameters.AddWithValue("@Fine", fine);
-                    cmd.Parameters.AddWithValue("@ReferenceInfo", referenceInfo);
+                    cmd.Parameters.AddWithValue("@Violation", violation);
                     cmd.Parameters.AddWithValue("@LicensePlate", licensePlate);
+                    cmd.Parameters.AddWithValue("@FineText", fineText);
+                    cmd.Parameters.AddWithValue("@Description", description);
+                    cmd.Parameters.AddWithValue("@Status", status);
+                    cmd.Parameters.AddWithValue("@Owner", owner);
+                    cmd.Parameters.AddWithValue("@TemporaryInspector", temporaryInspector);
+                    cmd.Parameters.AddWithValue("@CarId", carId);
 
                     cmd.ExecuteNonQuery(); // Выполняем запрос
                 }
+                MessageBox.Show("Нарушение успешно добавлено!");
             }
             catch (Exception ex)
             {
@@ -802,6 +1492,8 @@ namespace WinFormsApp5
 
             LoadViolations(); // Перезагрузить данные
         }
+
+
 
         private void button4_Click_1(object sender, EventArgs e)
         {
@@ -813,28 +1505,43 @@ namespace WinFormsApp5
                 int violationId = Convert.ToInt32(row.Cells["Id"].Value);
 
                 string updateViolation = "UPDATE Нарушения SET " +
+                                         "НомерПротокола = COALESCE(NULLIF(@ProtocolNumber, ''), НомерПротокола), " +
                                          "ДатаНарушения = COALESCE(NULLIF(@ViolationDate, ''), ДатаНарушения), " +
-                                         "Описание = COALESCE(NULLIF(@Description, ''), Описание), " +
+                                         "Нарушение = COALESCE(NULLIF(@Violation, ''), Нарушение), " +
+                                         "НомернойЗнак = COALESCE(NULLIF(@LicensePlate, ''), НомернойЗнак), " +
                                          "Штраф = COALESCE(NULLIF(@Fine, ''), Штраф), " +
-                                         "СправочнаяИнформация = COALESCE(NULLIF(@ReferenceInfo, ''), СправочнаяИнформация), " +
-                                         "НомернойЗнак = COALESCE(NULLIF(@LicensePlate, ''), НомернойЗнак) " +
+                                         "Описание = COALESCE(NULLIF(@Description, ''), Описание), " +
+                                         "СтатусШтрафа = COALESCE(NULLIF(@Status, ''), СтатусШтрафа) " +
                                          "WHERE Id = @Id";
 
-                using (var cmd = new SQLiteCommand(updateViolation, sqliteConn))
+                try
                 {
-                    cmd.Parameters.AddWithValue("@Id", violationId);
-                    cmd.Parameters.AddWithValue("@ViolationDate", VioldateTimePicker.Value.ToString("yyyy-MM-dd"));
-                    cmd.Parameters.AddWithValue("@Description", Description.Text);
-                    cmd.Parameters.AddWithValue("@Fine", Convert.ToDecimal(Fine.Text));
-                    cmd.Parameters.AddWithValue("@ReferenceInfo", Info.Text);
-                    cmd.Parameters.AddWithValue("@LicensePlate", Licenseplate.Text);
+                    using (var cmd = new SQLiteCommand(updateViolation, sqliteConn))
+                    {
+                        // Добавление параметров
+                        cmd.Parameters.AddWithValue("@Id", violationId);
+                        cmd.Parameters.AddWithValue("@ProtocolNumber", ProtocolNumber.Text.Trim());
+                        cmd.Parameters.AddWithValue("@ViolationDate", VioldateTimePicker.Value.ToString("yyyy-MM-dd"));
+                        cmd.Parameters.AddWithValue("@Violation", Description.Text.Trim());
+                        cmd.Parameters.AddWithValue("@LicensePlate", Licenseplate.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Fine", Convert.ToDecimal(Fine.Text.Trim()));
+                        cmd.Parameters.AddWithValue("@Description", Info.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Status", statuscomboBox.SelectedItem.ToString());
 
-                    cmd.ExecuteNonQuery(); // Выполняем обновление
+                        cmd.ExecuteNonQuery(); // Выполняем обновление
+                    }
+                    MessageBox.Show("Нарушение успешно обновлено!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при обновлении нарушения: {ex.Message}");
                 }
             }
 
             LoadViolations(); // Перезагрузить данные
         }
+
+
 
         private void DelViol_Click_1(object sender, EventArgs e)
         {
@@ -866,55 +1573,88 @@ namespace WinFormsApp5
             LoadViolations();
         }
 
-        private void violationsDataGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        private void violationsDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return; // Отключаем обработку заголовков
 
+            // Получаем выбранную строку
             DataGridViewRow selectedRow = violationsDataGridView.Rows[e.RowIndex];
 
+            // Извлекаем данные из ячеек
             string protocolNumber = selectedRow.Cells["НомерПротокола"].Value.ToString();
+            string violation = selectedRow.Cells["Нарушение"].Value.ToString();
             string description = selectedRow.Cells["Описание"].Value.ToString();
-            string info = selectedRow.Cells["СправочнаяИнформация"].Value.ToString();
             string licensePlate = selectedRow.Cells["НомернойЗнак"].Value.ToString();
             decimal fine = Convert.ToDecimal(selectedRow.Cells["Штраф"].Value);
             DateTime violateDate = Convert.ToDateTime(selectedRow.Cells["ДатаНарушения"].Value);
+            string inspectorName = selectedRow.Cells["ВыписалПротокол"].Value.ToString();
             string driverName = selectedRow.Cells["Водитель"].Value.ToString();
+            string status = selectedRow.Cells["СтатусШтрафа"].Value.ToString();
 
-            ViolationsForm violationForm = new ViolationsForm(protocolNumber, description, licensePlate, info, fine, violateDate, driverName);
+            // Заполняем текстовые поля на форме
+            ProtocolNumber.Text = protocolNumber;
+            Description.Text = violation;
+            Licenseplate.Text = licensePlate;
+            Fine.Text = fine.ToString();
+            Info.Text = description;
+            VioldateTimePicker.Value = violateDate;
+            FIOGAItextBox.Text = inspectorName;
+            FIOVODtextBox.Text = driverName;
+            statuscomboBox.Text = status;
+        }
 
-            violationForm.ShowDialog();
+        private void violationsDataGridView_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void searchRegistr_Click(object sender, EventArgs e)
         {
-            string licensePlate = NumberTextBox.Text.Trim();
             string certificateOfRegistration = STStextBox5.Text.Trim();
+            string insurance = strahTextBox.Text.Trim();
+            string licensePlate = NumberTextBox.Text.Trim();
+            DateTime registrationDate = dateTimePicker1.Value;
 
             // Начинаем с базового запроса
-            string searchQuery = "SELECT r.Владелец, r.НомернойЗнак, r.СвидетельствоОРегистрации, r.ДатаРегистрации " +
-                     "FROM Регистрация r JOIN Водители d ON r.Владелец = d.ПолноеИмя " +
-                     "WHERE 1=1"; // Условие всегда истинно (для удобства добавления других условий)
+            string searchQuery = "SELECT r.Владелец, r.НомернойЗнак, r.СвидетельствоОРегистрации, r.Страховка, r.ДатаРегистрации " +
+                                 "FROM Регистрация r WHERE 1=1"; // Условие всегда истинно (для удобства добавления других условий)
 
             // Добавляем условия поиска
+            if (!string.IsNullOrEmpty(certificateOfRegistration))
+            {
+                searchQuery += " AND r.СвидетельствоОРегистрации LIKE '%' || @СвидетельствоОРегистрации || '%'";
+            }
+            if (!string.IsNullOrEmpty(insurance))
+            {
+                searchQuery += " AND r.Страховка LIKE '%' || @Страховка || '%'";
+            }
             if (!string.IsNullOrEmpty(licensePlate))
             {
                 searchQuery += " AND r.НомернойЗнак LIKE '%' || @НомернойЗнак || '%'";
             }
-            if (!string.IsNullOrEmpty(certificateOfRegistration))
+            if (registrationDate != DateTime.MinValue)
             {
-                searchQuery += " AND r.СвидетельствоОРегистрации LIKE '%' || @СвидетельствоОРегистрации || '%'";
+                searchQuery += " AND r.ДатаРегистрации = @ДатаРегистрации";
             }
 
             using (var cmd = new SQLiteCommand(searchQuery, sqliteConn))
             {
                 // Заполняем параметры, если они были введены
+                if (!string.IsNullOrEmpty(certificateOfRegistration))
+                {
+                    cmd.Parameters.AddWithValue("@СвидетельствоОРегистрации", certificateOfRegistration);
+                }
+                if (!string.IsNullOrEmpty(insurance))
+                {
+                    cmd.Parameters.AddWithValue("@Страховка", insurance);
+                }
                 if (!string.IsNullOrEmpty(licensePlate))
                 {
                     cmd.Parameters.AddWithValue("@НомернойЗнак", licensePlate);
                 }
-                if (!string.IsNullOrEmpty(certificateOfRegistration))
+                if (registrationDate != DateTime.MinValue)
                 {
-                    cmd.Parameters.AddWithValue("@СвидетельствоОРегистрации", certificateOfRegistration);
+                    cmd.Parameters.AddWithValue("@ДатаРегистрации", registrationDate.ToString("yyyy-MM-dd"));
                 }
 
                 // Выполняем запрос и наполняем DataGridView
@@ -923,7 +1663,7 @@ namespace WinFormsApp5
                     var resultTable = new DataTable();
                     adapter.Fill(resultTable);
 
-                    // Проверяем наличия результатов
+                    // Проверяем наличие результатов
                     if (resultTable.Rows.Count > 0)
                     {
                         RegistrdataGridView.DataSource = resultTable;
@@ -939,33 +1679,88 @@ namespace WinFormsApp5
             }
         }
 
+
         private void addRegister_Click(object sender, EventArgs e)
         {
+            string certificateOfRegistration = STStextBox5.Text.Trim();
+            DateTime registrationDate = dateTimePicker1.Value;
+
+            // Проверка, чтобы все поля были заполнены
+            if (string.IsNullOrEmpty(certificateOfRegistration))
+            {
+                MessageBox.Show("Пожалуйста, заполните поле свидетельства о регистрации.");
+                return;
+            }
+
+            // Получение данных из таблицы Авто по СТС
+            string checkCarQuery = "SELECT Id, НомернойЗнак, Владелец, Страхование FROM Авто WHERE СвидетельствоОРегистрации = @СвидетельствоОРегистрации";
+            int carId = 0;
+            string licensePlate = "";
+            string owner = "";
+            string insurance = "";
+            int driverId = 0;
+
             try
             {
-                string licensePlate = NumberTextBox.Text;
-                string certificateOfRegistration = STStextBox5.Text;
-                string insurance = strahTextBox.Text;
-                string registrationDate = dateTimePicker1.Value.ToString("yyyy-MM-dd");
-
-                string ownerName = GetOwnerByCertificate(certificateOfRegistration); // Вводим имя владельца по СТС
-
-                if (string.IsNullOrEmpty(ownerName))
+                using (var checkCmd = new SQLiteCommand(checkCarQuery, sqliteConn))
                 {
-                    MessageBox.Show("Владелец с указанным номером свидетельства не найден.");
-                    return;
+                    checkCmd.Parameters.AddWithValue("@СвидетельствоОРегистрации", certificateOfRegistration);
+                    using (var reader = checkCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            carId = reader.GetInt32(0);
+                            licensePlate = reader.GetString(1);
+                            owner = reader.GetString(2);
+                            insurance = reader.GetString(3);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Автомобиль с таким СТС не найден.");
+                            return;
+                        }
+                    }
                 }
 
-                string insertQuery = "INSERT INTO Регистрация (Владелец, НомернойЗнак, СвидетельствоОРегистрации, Страховака, ДатаРегистрации) " +
-                                     "VALUES (@Владелец, @НомернойЗнак, @СвидетельствоОРегистрации, @Страховака, @ДатаРегистрации)";
+                // Получение Водитель_ID из таблицы Водители по СТС
+                string checkDriverQuery = "SELECT Id FROM Водители WHERE СвидетельствоОРегистрации = @СвидетельствоОРегистрации";
 
+                using (var checkCmd = new SQLiteCommand(checkDriverQuery, sqliteConn))
+                {
+                    checkCmd.Parameters.AddWithValue("@СвидетельствоОРегистрации", certificateOfRegistration);
+                    var result = checkCmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        driverId = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Водитель с таким СТС не найден.");
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при проверке данных: {ex.Message}");
+                return;
+            }
+
+            // SQL для вставки данных
+            string insertQuery = "INSERT INTO Регистрация (Владелец, НомернойЗнак, СвидетельствоОРегистрации, Страховка, ДатаРегистрации, Водитель_ID, Авто_ID) " +
+                                 "VALUES (@Владелец, @НомернойЗнак, @СвидетельствоОРегистрации, @Страховка, @ДатаРегистрации, @Водитель_ID, @Авто_ID)";
+
+            try
+            {
                 using (var cmd = new SQLiteCommand(insertQuery, sqliteConn))
                 {
-                    cmd.Parameters.AddWithValue("@Владелец", ownerName);
+                    cmd.Parameters.AddWithValue("@Владелец", owner);
                     cmd.Parameters.AddWithValue("@НомернойЗнак", licensePlate);
                     cmd.Parameters.AddWithValue("@СвидетельствоОРегистрации", certificateOfRegistration);
-                    cmd.Parameters.AddWithValue("@Страховака", insurance);
-                    cmd.Parameters.AddWithValue("@ДатаРегистрации", registrationDate);
+                    cmd.Parameters.AddWithValue("@Страховка", insurance);
+                    cmd.Parameters.AddWithValue("@ДатаРегистрации", registrationDate.ToString("yyyy-MM-dd"));
+                    cmd.Parameters.AddWithValue("@Водитель_ID", driverId);
+                    cmd.Parameters.AddWithValue("@Авто_ID", carId);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -976,29 +1771,9 @@ namespace WinFormsApp5
             {
                 MessageBox.Show($"Ошибка при добавлении регистрации: {ex.Message}");
             }
-            LoadRegistr();
-        }
 
-        // Метод для получения имени владельца по номеру свидетельства
-        private string GetOwnerByCertificate(string certificate)
-        {
-            string ownerName = string.Empty;
-
-            string query = "SELECT Владелец FROM Авто WHERE СвидетельствоОРегистрации = @Свидетельство";
-
-            using (var cmd = new SQLiteCommand(query, sqliteConn))
-            {
-                cmd.Parameters.AddWithValue("@Свидетельство", certificate);
-                object result = cmd.ExecuteScalar();
-
-                if (result != null)
-                {
-                    ownerName = result.ToString();
-                }
-            }
-
-            return ownerName;
-        }
+            LoadRegistr(); // Перезагрузить данные
+        }  
 
         private void EditRegister_Click(object sender, EventArgs e)
         {
@@ -1007,24 +1782,26 @@ namespace WinFormsApp5
 
             foreach (DataGridViewRow row in selectedRows)
             {
-                string ownerName = row.Cells["Владелец"].Value.ToString();
-                string updatedCertificateOfRegistration = STStextBox5.Text;
-                string updatedLicensePlate = NumberTextBox.Text;
+                int registrationId = Convert.ToInt32(row.Cells["Id"].Value);
+                string updatedCertificateOfRegistration = STStextBox5.Text.Trim();
+                string updatedLicensePlate = NumberTextBox.Text.Trim();
                 DateTime updatedRegistrationDate = dateTimePicker1.Value; // Дата регистрации
+                string updatedInsurance = strahTextBox.Text.Trim();
 
-                // Обратите внимание на удаление запятой перед WHERE
                 string updateCarQuery = "UPDATE Регистрация SET " +
-                                         "СвидетельствоОРегистрации = COALESCE(NULLIF(@СвидетельствоОРегистрации, ''), СвидетельствоОРегистрации), " +
-                                         "НомернойЗнак = COALESCE(NULLIF(@НомернойЗнак, ''), НомернойЗнак), " +
-                                         "ДатаРегистрации = COALESCE(NULLIF(@ДатаРегистрации, '0001-01-01'), ДатаРегистрации) " +
-                                         "WHERE Владелец = @Владелец";
+                                        "СвидетельствоОРегистрации = COALESCE(NULLIF(@СвидетельствоОРегистрации, ''), СвидетельствоОРегистрации), " +
+                                        "НомернойЗнак = COALESCE(NULLIF(@НомернойЗнак, ''), НомернойЗнак), " +
+                                        "ДатаРегистрации = COALESCE(NULLIF(@ДатаРегистрации, '0001-01-01'), ДатаРегистрации), " +
+                                        "Страховка = COALESCE(NULLIF(@Страховка, ''), Страховка) " +
+                                        "WHERE Id = @Id";
 
                 using (var cmd = new SQLiteCommand(updateCarQuery, sqliteConn))
                 {
-                    cmd.Parameters.AddWithValue("@Владелец", ownerName);
+                    cmd.Parameters.AddWithValue("@Id", registrationId);
                     cmd.Parameters.AddWithValue("@СвидетельствоОРегистрации", updatedCertificateOfRegistration);
                     cmd.Parameters.AddWithValue("@НомернойЗнак", updatedLicensePlate);
                     cmd.Parameters.AddWithValue("@ДатаРегистрации", updatedRegistrationDate.ToString("yyyy-MM-dd")); // Форматирование даты
+                    cmd.Parameters.AddWithValue("@Страховка", updatedInsurance);
 
                     cmd.ExecuteNonQuery(); // Выполняем обновление
                 }
@@ -1033,30 +1810,37 @@ namespace WinFormsApp5
             LoadRegistr(); // Перезагрузить данные
         }
 
+
         private void ObnoveRegistr_Click(object sender, EventArgs e)
         {
             LoadRegistr();
         }
 
-        private void RegistrdataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void RegistrdataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0) // Убедитесь, что вы кликнули по строке
             {
                 DataGridViewRow row = this.RegistrdataGridView.Rows[e.RowIndex];
 
-                // Получаем данные для создания формы деталей
-                string licensePlate = row.Cells["НомернойЗнак"].Value.ToString();
+                // Получаем данные для заполнения текстовых полей
                 string certificateOfRegistration = row.Cells["СвидетельствоОРегистрации"].Value.ToString();
+                string strahovka = row.Cells["Страховка"].Value?.ToString() ?? string.Empty; // Предполагается, что есть колонка Страховка
+                string licensePlate = row.Cells["НомернойЗнак"].Value.ToString();
                 DateTime registrationDate = Convert.ToDateTime(row.Cells["ДатаРегистрации"].Value);
-
-                // Переменные должны быть определены перед использованием
-                string strahovka = row.Cells["Страховака"].Value?.ToString() ?? string.Empty; // Предполагается, что есть колонка Страховака
                 string driverName = row.Cells["Владелец"].Value?.ToString() ?? string.Empty; // Предполагается, что есть колонка Владелец
 
-                // Создайте и покажите форму с полными данными
-                var Registr = new Registr(certificateOfRegistration, strahovka, licensePlate, driverName, registrationDate);
-                Registr.Show();
+                // Заполняем текстовые поля на форме
+                STStextBox5.Text = certificateOfRegistration;
+                strahTextBox.Text = strahovka;
+                NumberTextBox.Text = licensePlate;
+                dateTimePicker1.Value = registrationDate;
+                FiodrivertextBox.Text = driverName;
             }
+        }
+
+        private void RegistrdataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void DeleteRegistr_Click(object sender, EventArgs e)
@@ -1079,240 +1863,64 @@ namespace WinFormsApp5
                 {
                     cmd.ExecuteNonQuery();
                 }
-
                 LoadRegistr(); // Перезагрузить данные
             }
         }
 
-        private void SearchProtocol_Click(object sender, EventArgs e)
+        private void очиститьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int employeeGAIId;
-            int protocolNumber;
-
-            if (!int.TryParse(GAIidTextBox.Text.Trim(), out employeeGAIId))
+            // Очистка всех TextBox и ComboBox
+            foreach (Control control in this.Controls)
             {
-                MessageBox.Show("Введите корректный id сотрудника ГАИ.");
-                return;
+                ClearControl(control);
             }
 
-            if (!int.TryParse(ProtocoltextBox.Text.Trim(), out protocolNumber))
+            // Очистка всех элементов внутри TabControl
+            foreach (TabPage tab in tabControl1.TabPages)
             {
-                MessageBox.Show("Введите корректный номер протокола.");
-                return;
-            }
-
-            string searchQuery = "SELECT sp.*, (SELECT ПолноеИмя FROM СотрудникГАИ WHERE Id = sp.СотрудникГАИ_Id) AS ПолноеИмя " +
-                                 "FROM СотрудникПротоколы sp " +
-                                 "WHERE sp.СотрудникГАИ_Id = @СотрудникГАИ_Id AND sp.НомерПротокола = @НомерПротокола";
-
-            using (var cmd = new SQLiteCommand(searchQuery, sqliteConn))
-            {
-                cmd.Parameters.AddWithValue("@СотрудникГАИ_Id", employeeGAIId);
-                cmd.Parameters.AddWithValue("@НомерПротокола", protocolNumber);
-
-                using (var adapter = new SQLiteDataAdapter(cmd))
+                foreach (Control control in tab.Controls)
                 {
-                    var resultTable = new DataTable();
-                    adapter.Fill(resultTable);
-
-                    if (resultTable.Rows.Count > 0)
-                    {
-                        protocolsDataGridView.DataSource = resultTable;
-                        protocolsDataGridView.Rows[0].Selected = true;
-                    }
-                    else
-                    {
-                        protocolsDataGridView.DataSource = null;
-                        MessageBox.Show("Нет результатов для поиска.", "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    ClearControl(control);
                 }
             }
         }
 
-        private void AddProtocol_Click(object sender, EventArgs e)
+        // Рекурсивный метод для очистки TextBox и ComboBox
+        private void ClearControl(Control control)
         {
-            int employeeGAIId;
-            int protocolNumber;
-
-            // Проверка корректности id сотрудника ГАИ
-            if (!int.TryParse(GAIidTextBox.Text, out employeeGAIId))
+            if (control is TextBox)
             {
-                MessageBox.Show("Введите корректный id сотрудника ГАИ.");
-                return;
+                ((TextBox)control).Clear();
             }
-
-            // Проверка корректности номера протокола
-            if (!int.TryParse(ProtocoltextBox.Text, out protocolNumber))
+            else if (control is ComboBox)
             {
-                MessageBox.Show("Введите корректный номер протокола.");
-                return;
+                ((ComboBox)control).SelectedIndex = -1; // Сбросить выделение
             }
-
-            // Проверка, существует ли протокол в таблице Нарушения
-            string checkQuery = "SELECT COUNT(*) FROM Нарушения WHERE НомерПротокола = @НомерПротокола";
-            using (var checkCmd = new SQLiteCommand(checkQuery, sqliteConn))
+            else if (control is Panel || control is GroupBox)
             {
-                checkCmd.Parameters.AddWithValue("@НомерПротокола", protocolNumber);
-                var count = Convert.ToInt32(checkCmd.ExecuteScalar());
-                if (count == 0)
+                foreach (Control nestedControl in control.Controls)
                 {
-                    MessageBox.Show("Протокол с таким номером не найден в таблице Нарушения.");
-                    return;
+                    ClearControl(nestedControl);
                 }
-            }
-
-            // Получаем полное имя сотрудника ГАИ
-            string fullNameQuery = "SELECT ПолноеИмя FROM СотрудникГАИ WHERE Id = @СотрудникГАИ_Id";
-            string fullName = null; // Инициализация переменной fullName
-
-            using (var fullNameCmd = new SQLiteCommand(fullNameQuery, sqliteConn))
-            {
-                fullNameCmd.Parameters.AddWithValue("@СотрудникГАИ_Id", employeeGAIId);
-                object result = fullNameCmd.ExecuteScalar();
-
-                // Проверка, найден ли сотрудник по ID
-                if (result != null)
-                {
-                    fullName = result.ToString();
-                }
-                else
-                {
-                    MessageBox.Show("Сотрудник ГАИ с таким id не найден.");
-                    return;
-                }
-            }
-
-            // Запрос на добавление нового протокола
-            string insertQuery = "INSERT INTO СотрудникПротоколы (СотрудникГАИ_Id, НомерПротокола, ПолноеИмя) VALUES (@СотрудникГАИ_Id, @НомерПротокола, @ПолноеИмя)";
-
-            using (var cmd = new SQLiteCommand(insertQuery, sqliteConn))
-            {
-                cmd.Parameters.AddWithValue("@СотрудникГАИ_Id", employeeGAIId);
-                cmd.Parameters.AddWithValue("@НомерПротокола", protocolNumber);
-                cmd.Parameters.AddWithValue("@ПолноеИмя", fullName);
-                cmd.ExecuteNonQuery();
-            }
-
-            MessageBox.Show("Протокол успешно добавлен!");
-            LoadProtocol(); // Метод для перезагрузки данных в DataGridView
-        }
-
-
-        private void EditProtocol_Click(object sender, EventArgs e)
-        {
-            var selectedRows = protocolsDataGridView.SelectedRows;
-            if (selectedRows.Count == 0)
-            {
-                MessageBox.Show("Пожалуйста, выберите строку для редактирования.");
-                return;
-            }
-
-            int newEmployeeGAIId;
-            if (!int.TryParse(GAIidTextBox.Text.Trim(), out newEmployeeGAIId))
-            {
-                MessageBox.Show("Введите корректный id сотрудника ГАИ.");
-                return;
-            }
-
-            int newProtocolNumber;
-            if (!int.TryParse(ProtocoltextBox.Text.Trim(), out newProtocolNumber))
-            {
-                MessageBox.Show("Введите корректный новый номер протокола.");
-                return;
-            }
-
-            foreach (DataGridViewRow row in selectedRows)
-            {
-                int currentEmployeeGAIId = Convert.ToInt32(row.Cells["СотрудникГАИ_Id"].Value);
-                int currentProtocolNumber = Convert.ToInt32(row.Cells["НомерПротокола"].Value);
-
-                // Проверка на существование комбинации
-                string checkQuery = "SELECT COUNT(*) FROM СотрудникПротоколы WHERE СотрудникГАИ_Id = @NewСотрудникГАИ_Id AND НомерПротокола = @NewНомерПротокола";
-                using (var checkCmd = new SQLiteCommand(checkQuery, sqliteConn))
-                {
-                    checkCmd.Parameters.AddWithValue("@NewСотрудникГАИ_Id", newEmployeeGAIId);
-                    checkCmd.Parameters.AddWithValue("@NewНомерПротокола", newProtocolNumber);
-                    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
-
-                    if (count > 0)
-                    {
-                        MessageBox.Show("Запись с таким id сотрудника ГАИ и номером протокола уже существует.");
-                        return;
-                    }
-                }
-
-                // Получаем новое полное имя
-                string newFullNameQuery = "SELECT ПолноеИмя FROM СотрудникГАИ WHERE Id = @NewСотрудникГАИ_Id";
-                string newFullName;
-                using (var fullNameCmd = new SQLiteCommand(newFullNameQuery, sqliteConn))
-                {
-                    fullNameCmd.Parameters.AddWithValue("@NewСотрудникГАИ_Id", newEmployeeGAIId);
-                    newFullName = (string)fullNameCmd.ExecuteScalar();
-                }
-
-                // Обновление записи
-                string updateQuery = "UPDATE СотрудникПротоколы SET СотрудникГАИ_Id = @NewСотрудникГАИ_Id, НомерПротокола = @NewНомерПротокола, ПолноеИмя = @ПолноеИмя " +
-                                     "WHERE СотрудникГАИ_Id = @СотрудникГАИ_Id AND НомерПротокола = @НомерПротокола";
-
-                using (var cmd = new SQLiteCommand(updateQuery, sqliteConn))
-                {
-                    cmd.Parameters.AddWithValue("@СотрудникГАИ_Id", currentEmployeeGAIId);
-                    cmd.Parameters.AddWithValue("@НомерПротокола", currentProtocolNumber);
-                    cmd.Parameters.AddWithValue("@NewСотрудникГАИ_Id", newEmployeeGAIId);
-                    cmd.Parameters.AddWithValue("@NewНомерПротокола", newProtocolNumber);
-                    cmd.Parameters.AddWithValue("@ПолноеИмя", newFullName); // Обновляем полное имя
-                    cmd.ExecuteNonQuery();
-                }
-            }
-
-            MessageBox.Show("Протокол успешно обновлён!");
-            LoadProtocol();
-        }
-
-        private void DeliteProtocol_Click(object sender, EventArgs e)
-        {
-            var selectedRows = protocolsDataGridView.SelectedRows;
-            if (selectedRows.Count == 0) return;
-
-            var protocolsToDelete = new List<string>();
-
-            foreach (DataGridViewRow row in selectedRows)
-            {
-                int employeeGAIId = Convert.ToInt32(row.Cells["СотрудникГАИ_Id"].Value);
-                int protocolNumber = Convert.ToInt32(row.Cells["НомерПротокола"].Value);
-                protocolsToDelete.Add($"({employeeGAIId}, {protocolNumber})");
-            }
-
-            DialogResult dialogResult = MessageBox.Show("Вы уверены, что хотите удалить выбранные записи?", "Подтверждение", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                string deleteQuery = $"DELETE FROM СотрудникПротоколы WHERE (СотрудникГАИ_Id, НомерПротокола) IN ({string.Join(",", protocolsToDelete)})";
-
-                using (var cmd = new SQLiteCommand(deleteQuery, sqliteConn))
-                {
-                    cmd.ExecuteNonQuery();
-                }
-
-                LoadProtocol();
             }
         }
 
-        private void ObnoveProt_Click(object sender, EventArgs e)
+    
+
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadProtocol();
+            var result = MessageBox.Show("Вы точно хотите выйти?", "Подтверждение выхода", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                Form2 form2 = new Form2();
+                form2.Show();
+                this.Hide(); // Скрыть текущую форму вместо закрытия
+            }
+            // Если пользователь выбрал "Нет", ничего не делаем, и форма останется открытой.
         }
 
-        private void protocolsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //if (e.RowIndex >= 0)
-            //{
-            //    DataGridViewRow row = this.protocolsDataGridView.Rows[e.RowIndex];
 
-            //    int protocolNumber = Convert.ToInt32(row.Cells["НомерПротокола"].Value);
-            //    Создаем и показываем форму с данными протокола, если требуется
-            //    var protocolDetails = new protocolsDetailsForm(protocolNumber);
-            //    protocolDetails.Show();
-            //}
-        }
     }
 }
