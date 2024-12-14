@@ -18,7 +18,7 @@ namespace WinFormsApp5
         {
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(Form2_FormClosing);
-        }       
+        }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -41,7 +41,7 @@ namespace WinFormsApp5
         {
             string userName = userNameTextBox.Text;
             string password = passwordTextBox.Text;
-            if (userName =="gai" && password == "")
+            if (userName == "gai" && password == "")
             {
                 Gai gaiForm = new Gai();
                 gaiForm.Show();
@@ -53,7 +53,7 @@ namespace WinFormsApp5
                 userForm.Show();
                 this.Hide();
             }
-            else if ((userName == "admin" && password == "" )|| userName == "фвьшт")
+            else if ((userName == "admin" && password == "") || userName == "фвьшт")
             {
                 Form1 adminForm = new Form1();
                 adminForm.Show();

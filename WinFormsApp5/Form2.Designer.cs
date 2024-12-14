@@ -43,7 +43,7 @@
             // 
             LoginButton.BackColor = SystemColors.ActiveCaption;
             LoginButton.ForeColor = SystemColors.Desktop;
-            LoginButton.Location = new Point(339, 601);
+            LoginButton.Location = new Point(334, 599);
             LoginButton.Name = "LoginButton";
             LoginButton.Size = new Size(115, 42);
             LoginButton.TabIndex = 1;
@@ -54,7 +54,7 @@
             // userNameTextBox
             // 
             userNameTextBox.BorderStyle = BorderStyle.FixedSingle;
-            userNameTextBox.Location = new Point(250, 289);
+            userNameTextBox.Location = new Point(239, 289);
             userNameTextBox.Name = "userNameTextBox";
             userNameTextBox.Size = new Size(308, 23);
             userNameTextBox.TabIndex = 3;
@@ -82,7 +82,7 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = SystemColors.ActiveCaption;
-            label3.Location = new Point(365, 355);
+            label3.Location = new Point(363, 355);
             label3.Name = "label3";
             label3.Size = new Size(57, 15);
             label3.TabIndex = 6;
