@@ -52,25 +52,24 @@ namespace WinFormsApp5
             StrahovkaTextBox.KeyPress += new KeyPressEventHandler(StrahovkaTextBox_KeyPress);
 
             ProtocolNumber.KeyPress += new KeyPressEventHandler(ProtocolNumber_KeyPress);
-            ProtocolNumber.Leave += new EventHandler(ProtocolNumber_Leave);
             Fine.KeyPress += new KeyPressEventHandler(Fine_KeyPress);
             PopulateComboBoxes();
         }
         private void PopulateComboBoxes()
         {
-            
+
             var status = new List<string>
             {
                 "оплачен",
                 "не оплачен"
-            };       
+            };
             statuscomboBox.Items.Clear();
             statuscomboBox.Items.AddRange(status.ToArray());
         }
         private void SurnameTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Разрешаем только русские буквы и Backspace
-            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я' || e.KeyChar == 'ё' || e.KeyChar == 'Ё'))
+            // Разрешаем только русские буквы, 'ё', 'Ё' и Backspace
+            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё')
             {
                 e.Handled = true;
             }
@@ -78,8 +77,8 @@ namespace WinFormsApp5
 
         private void firstnametextbox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Разрешаем только русские буквы и Backspace
-            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я' || e.KeyChar == 'ё' || e.KeyChar == 'Ё'))
+            // Разрешаем только русские буквы, 'ё', 'Ё' и Backspace
+            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё')
             {
                 e.Handled = true;
             }
@@ -87,8 +86,8 @@ namespace WinFormsApp5
 
         private void middlenametextbox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Разрешаем только русские буквы и Backspace
-            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я' || e.KeyChar == 'ё' || e.KeyChar == 'Ё'))
+            // Разрешаем только русские буквы, 'ё', 'Ё' и Backspace
+            if (!char.IsControl(e.KeyChar) && (e.KeyChar < 'А' || e.KeyChar > 'я') && e.KeyChar != 'ё' && e.KeyChar != 'Ё')
             {
                 e.Handled = true;
             }
@@ -234,23 +233,9 @@ namespace WinFormsApp5
         private void ProtocolNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Разрешаем ввод только цифр, Backspace и "№" в начале строки
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '№' || ProtocolNumber.SelectionStart != 0))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
-            }
-        }
-
-
-        private void ProtocolNumber_Leave(object sender, EventArgs e)
-        {
-            // Проверка, чтобы избежать лишнего пробела
-            if (string.IsNullOrWhiteSpace(ProtocolNumber.Text) || ProtocolNumber.Text.Trim() == "№")
-            {
-                ProtocolNumber.Text = "№";
-            }
-            else if (!ProtocolNumber.Text.StartsWith("№"))
-            {
-                ProtocolNumber.Text = "№" + ProtocolNumber.Text.Trim();
             }
         }
         private void Fine_KeyPress(object sender, KeyPressEventArgs e)
@@ -382,6 +367,7 @@ namespace WinFormsApp5
             string certificateOfRegistration = certificateofregistrationtextbox.Text.Trim();
             string driverLicense = driverLicenseTextBox.Text.Trim();
             DateTime dateOfBirth = driverDateOfBirthPicker.Value;
+            bool includeDate = checkBox1.Checked;
 
             string query = "SELECT * FROM Водители WHERE 1=1"; // Начало запроса
 
@@ -402,7 +388,7 @@ namespace WinFormsApp5
                 query += " AND СвидетельствоОРегистрации LIKE '%' || @certificateOfRegistration || '%'";
             if (!string.IsNullOrEmpty(driverLicense))
                 query += " AND ВодительскоеУдостоверение LIKE '%' || @driverLicense || '%'";
-            if (dateOfBirth != DateTime.MinValue)
+            if (includeDate && dateOfBirth != DateTime.MinValue)
                 query += " AND ДатаРождения = @dateOfBirth";
 
             using (var cmd = new SQLiteCommand(query, sqliteConn))
@@ -424,7 +410,7 @@ namespace WinFormsApp5
                     cmd.Parameters.AddWithValue("@certificateOfRegistration", certificateOfRegistration);
                 if (!string.IsNullOrEmpty(driverLicense))
                     cmd.Parameters.AddWithValue("@driverLicense", driverLicense);
-                if (dateOfBirth != DateTime.MinValue)
+                if (includeDate && dateOfBirth != DateTime.MinValue)
                     cmd.Parameters.AddWithValue("@dateOfBirth", dateOfBirth.ToString("yyyy-MM-dd"));
 
                 // Вывод на консоль для отладки
@@ -467,8 +453,6 @@ namespace WinFormsApp5
                                 MessageBox.Show("Ошибка при выборе текущей ячейки: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
-
-
                     }
                 }
             }
@@ -589,13 +573,15 @@ namespace WinFormsApp5
             string violation = Description.Text.Trim();
             string info = Info.Text.Trim();
             string licensePlate = Licenseplate.Text.Trim();
-            string status = statuscomboBox.SelectedItem.ToString(); // Получаем выбранный статус штрафа
+            string status = statuscomboBox.SelectedItem?.ToString() ?? string.Empty; // Получаем выбранный статус штрафа
+            bool includeDate = checkBox1.Checked;
 
             string query = "SELECT * FROM Нарушения WHERE 1=1"; // Начало запроса
 
+            // Условия поиска
             if (!string.IsNullOrEmpty(protocolNumber))
                 query += " AND НомерПротокола LIKE @protocolNumber";
-            if (violationDate != DateTime.MinValue)
+            if (includeDate && violationDate != DateTime.MinValue)
                 query += " AND ДатаНарушения = @violationDate";
             if (!string.IsNullOrEmpty(violation))
                 query += " AND Нарушение LIKE @violation";
@@ -604,13 +590,14 @@ namespace WinFormsApp5
             if (!string.IsNullOrEmpty(licensePlate))
                 query += " AND НомернойЗнак LIKE @licensePlate";
             if (!string.IsNullOrEmpty(status))
-                query += " AND СтатусШтрафа LIKE @status";
+                query += " AND СтатусШтрафа = @status"; // Изменяем на точное сравнение
 
             using (var cmd = new SQLiteCommand(query, sqliteConn))
             {
+                // Добавление параметров
                 if (!string.IsNullOrEmpty(protocolNumber))
                     cmd.Parameters.AddWithValue("@protocolNumber", "%" + protocolNumber + "%");
-                if (violationDate != DateTime.MinValue)
+                if (includeDate && violationDate != DateTime.MinValue)
                     cmd.Parameters.AddWithValue("@violationDate", violationDate.ToString("yyyy-MM-dd"));
                 if (!string.IsNullOrEmpty(violation))
                     cmd.Parameters.AddWithValue("@violation", "%" + violation + "%");
@@ -619,21 +606,35 @@ namespace WinFormsApp5
                 if (!string.IsNullOrEmpty(licensePlate))
                     cmd.Parameters.AddWithValue("@licensePlate", "%" + licensePlate + "%");
                 if (!string.IsNullOrEmpty(status))
-                    cmd.Parameters.AddWithValue("@status", "%" + status + "%");
+                    cmd.Parameters.AddWithValue("@status", status); // Передаем статус без процентов
 
-                using (SQLiteDataReader reader = cmd.ExecuteReader())
+                // Вывод параметров для отладки
+                Console.WriteLine("SQL Query: " + query);
+                foreach (SQLiteParameter parameter in cmd.Parameters)
                 {
-                    var violations = new DataTable(); // Создаем временную таблицу для данных
-                    violations.Load(reader); // Загружаем данные из запроса в DataTable
+                    Console.WriteLine($"{parameter.ParameterName}: {parameter.Value}");
+                }
 
-                    if (violations.Rows.Count == 0)
+                try
+                {
+                    using (SQLiteDataReader reader = cmd.ExecuteReader())
                     {
-                        MessageBox.Show("Нет таких нарушений!", "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        var violations = new DataTable(); // Создаем временную таблицу для данных
+                        violations.Load(reader); // Загружаем данные из запроса в DataTable
+
+                        if (violations.Rows.Count == 0)
+                        {
+                            MessageBox.Show("Нет таких нарушений!", "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            violationsDataGridView.DataSource = violations; // Заполняем DataGridView новыми данными
+                        }
                     }
-                    else
-                    {
-                        violationsDataGridView.DataSource = violations; // Заполняем DataGridView новыми данными
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при выполнении поиска: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

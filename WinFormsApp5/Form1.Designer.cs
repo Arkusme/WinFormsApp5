@@ -146,6 +146,7 @@
             менюToolStripMenuItem = new ToolStripMenuItem();
             очиститьToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
+            checkBox1 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)PolicemanDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AutoDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)driversDataGridView).BeginInit();
@@ -286,7 +287,6 @@
             lastNameTextBox.Name = "lastNameTextBox";
             lastNameTextBox.Size = new Size(109, 23);
             lastNameTextBox.TabIndex = 221;
-            lastNameTextBox.Text = " ";
             // 
             // ObnovePolice
             // 
@@ -454,7 +454,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(192, 138);
+            label9.Location = new Point(193, 158);
             label9.Name = "label9";
             label9.Size = new Size(90, 15);
             label9.TabIndex = 202;
@@ -463,7 +463,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(332, 79);
+            label8.Location = new Point(333, 99);
             label8.Name = "label8";
             label8.Size = new Size(168, 15);
             label8.TabIndex = 201;
@@ -471,7 +471,7 @@
             // 
             // certificateofregistrationtextbox
             // 
-            certificateofregistrationtextbox.Location = new Point(232, 97);
+            certificateofregistrationtextbox.Location = new Point(233, 117);
             certificateofregistrationtextbox.Name = "certificateofregistrationtextbox";
             certificateofregistrationtextbox.Size = new Size(101, 23);
             certificateofregistrationtextbox.TabIndex = 200;
@@ -479,7 +479,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(264, 79);
+            label7.Location = new Point(265, 99);
             label7.Name = "label7";
             label7.Size = new Size(29, 15);
             label7.TabIndex = 199;
@@ -487,7 +487,7 @@
             // 
             // addresstextbox
             // 
-            addresstextbox.Location = new Point(118, 97);
+            addresstextbox.Location = new Point(119, 117);
             addresstextbox.Name = "addresstextbox";
             addresstextbox.Size = new Size(100, 23);
             addresstextbox.TabIndex = 198;
@@ -495,7 +495,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(149, 79);
+            label6.Location = new Point(150, 99);
             label6.Name = "label6";
             label6.Size = new Size(40, 15);
             label6.TabIndex = 197;
@@ -504,7 +504,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(26, 79);
+            label5.Location = new Point(27, 99);
             label5.Name = "label5";
             label5.Size = new Size(55, 15);
             label5.TabIndex = 196;
@@ -512,7 +512,7 @@
             // 
             // phonetextbox
             // 
-            phonetextbox.Location = new Point(12, 97);
+            phonetextbox.Location = new Point(13, 117);
             phonetextbox.Name = "phonetextbox";
             phonetextbox.Size = new Size(100, 23);
             phonetextbox.TabIndex = 195;
@@ -520,7 +520,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(364, 35);
+            label4.Location = new Point(365, 55);
             label4.Name = "label4";
             label4.Size = new Size(54, 15);
             label4.TabIndex = 194;
@@ -528,7 +528,7 @@
             // 
             // passportnumbertextbox
             // 
-            passportnumbertextbox.Location = new Point(349, 53);
+            passportnumbertextbox.Location = new Point(350, 73);
             passportnumbertextbox.Name = "passportnumbertextbox";
             passportnumbertextbox.Size = new Size(100, 23);
             passportnumbertextbox.TabIndex = 193;
@@ -536,7 +536,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(254, 35);
+            label3.Location = new Point(255, 55);
             label3.Name = "label3";
             label3.Size = new Size(58, 15);
             label3.TabIndex = 192;
@@ -544,14 +544,14 @@
             // 
             // middlenametextbox
             // 
-            middlenametextbox.Location = new Point(233, 53);
+            middlenametextbox.Location = new Point(234, 73);
             middlenametextbox.Name = "middlenametextbox";
             middlenametextbox.Size = new Size(100, 23);
             middlenametextbox.TabIndex = 191;
             // 
             // firstnametextbox
             // 
-            firstnametextbox.Location = new Point(127, 53);
+            firstnametextbox.Location = new Point(128, 73);
             firstnametextbox.Name = "firstnametextbox";
             firstnametextbox.Size = new Size(100, 23);
             firstnametextbox.TabIndex = 190;
@@ -559,7 +559,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(161, 35);
+            label2.Location = new Point(162, 55);
             label2.Name = "label2";
             label2.Size = new Size(31, 15);
             label2.TabIndex = 189;
@@ -568,7 +568,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(26, 35);
+            label1.Location = new Point(27, 55);
             label1.Name = "label1";
             label1.Size = new Size(58, 15);
             label1.TabIndex = 188;
@@ -606,14 +606,14 @@
             // 
             // driverDateOfBirthPicker
             // 
-            driverDateOfBirthPicker.Location = new Point(127, 156);
+            driverDateOfBirthPicker.Location = new Point(128, 176);
             driverDateOfBirthPicker.Name = "driverDateOfBirthPicker";
             driverDateOfBirthPicker.Size = new Size(224, 23);
             driverDateOfBirthPicker.TabIndex = 184;
             // 
             // driverLicenseTextBox
             // 
-            driverLicenseTextBox.Location = new Point(349, 97);
+            driverLicenseTextBox.Location = new Point(350, 117);
             driverLicenseTextBox.Name = "driverLicenseTextBox";
             driverLicenseTextBox.Size = new Size(109, 23);
             driverLicenseTextBox.TabIndex = 183;
@@ -677,7 +677,7 @@
             // 
             // SurnameTextBox
             // 
-            SurnameTextBox.Location = new Point(12, 53);
+            SurnameTextBox.Location = new Point(13, 73);
             SurnameTextBox.Name = "SurnameTextBox";
             SurnameTextBox.Size = new Size(109, 23);
             SurnameTextBox.TabIndex = 176;
@@ -862,7 +862,6 @@
             STStextBox5.Name = "STStextBox5";
             STStextBox5.Size = new Size(99, 23);
             STStextBox5.TabIndex = 197;
-            STStextBox5.Text = " ";
             // 
             // label31
             // 
@@ -1062,7 +1061,6 @@
             ProtocolNumber.Name = "ProtocolNumber";
             ProtocolNumber.Size = new Size(109, 23);
             ProtocolNumber.TabIndex = 179;
-            ProtocolNumber.Text = " ";
             // 
             // label20
             // 
@@ -1216,11 +1214,22 @@
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
             // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(2, 27);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(129, 19);
+            checkBox1.TabIndex = 250;
+            checkBox1.Text = "Использовать дату";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1310, 732);
+            Controls.Add(checkBox1);
             Controls.Add(label34);
             Controls.Add(issuedProtocolsTextBox);
             Controls.Add(rankcomboBox);
@@ -1432,5 +1441,6 @@
         private ToolStripMenuItem выходToolStripMenuItem;
         private Label label36;
         private ComboBox statuscomboBox;
+        private CheckBox checkBox1;
     }
 }

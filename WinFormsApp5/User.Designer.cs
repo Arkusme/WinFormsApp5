@@ -35,6 +35,8 @@
             searchdriver = new Button();
             driversDataGridView = new DataGridView();
             tabPage1 = new TabPage();
+            label36 = new Label();
+            statuscomboBox = new ComboBox();
             label29 = new Label();
             FIOVODtextBox = new TextBox();
             label27 = new Label();
@@ -91,8 +93,7 @@
             менюToolStripMenuItem = new ToolStripMenuItem();
             очиститьToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
-            label36 = new Label();
-            statuscomboBox = new ComboBox();
+            checkBox1 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)AutoDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)driversDataGridView).BeginInit();
             tabPage1.SuspendLayout();
@@ -103,7 +104,7 @@
             // 
             // ObnoveAuto
             // 
-            ObnoveAuto.Location = new Point(914, 323);
+            ObnoveAuto.Location = new Point(922, 340);
             ObnoveAuto.Name = "ObnoveAuto";
             ObnoveAuto.Size = new Size(75, 23);
             ObnoveAuto.TabIndex = 285;
@@ -113,7 +114,7 @@
             // 
             // Obnovedriv
             // 
-            Obnovedriv.Location = new Point(914, 159);
+            Obnovedriv.Location = new Point(922, 176);
             Obnovedriv.Name = "Obnovedriv";
             Obnovedriv.Size = new Size(75, 23);
             Obnovedriv.TabIndex = 284;
@@ -123,7 +124,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(786, 305);
+            button3.Location = new Point(794, 322);
             button3.Name = "button3";
             button3.Size = new Size(122, 59);
             button3.TabIndex = 251;
@@ -134,7 +135,7 @@
             // AutoDataGridView
             // 
             AutoDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            AutoDataGridView.Location = new Point(543, 195);
+            AutoDataGridView.Location = new Point(551, 212);
             AutoDataGridView.Name = "AutoDataGridView";
             AutoDataGridView.RowTemplate.Height = 25;
             AutoDataGridView.Size = new Size(763, 104);
@@ -142,7 +143,7 @@
             // 
             // searchdriver
             // 
-            searchdriver.Location = new Point(786, 152);
+            searchdriver.Location = new Point(794, 169);
             searchdriver.Name = "searchdriver";
             searchdriver.Size = new Size(122, 37);
             searchdriver.TabIndex = 246;
@@ -153,7 +154,7 @@
             // driversDataGridView
             // 
             driversDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            driversDataGridView.Location = new Point(543, 31);
+            driversDataGridView.Location = new Point(551, 48);
             driversDataGridView.Name = "driversDataGridView";
             driversDataGridView.RowTemplate.Height = 25;
             driversDataGridView.Size = new Size(763, 115);
@@ -189,6 +190,23 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Правонарушения";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label36
+            // 
+            label36.AutoSize = true;
+            label36.Location = new Point(395, 24);
+            label36.Name = "label36";
+            label36.Size = new Size(90, 15);
+            label36.TabIndex = 266;
+            label36.Text = "Статус штрафа";
+            // 
+            // statuscomboBox
+            // 
+            statuscomboBox.FormattingEnabled = true;
+            statuscomboBox.Location = new Point(391, 42);
+            statuscomboBox.Name = "statuscomboBox";
+            statuscomboBox.Size = new Size(109, 23);
+            statuscomboBox.TabIndex = 265;
             // 
             // label29
             // 
@@ -269,7 +287,6 @@
             ProtocolNumber.Name = "ProtocolNumber";
             ProtocolNumber.Size = new Size(109, 23);
             ProtocolNumber.TabIndex = 249;
-            ProtocolNumber.Text = " ";
             // 
             // label20
             // 
@@ -365,7 +382,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(212, 131);
+            label9.Location = new Point(220, 148);
             label9.Name = "label9";
             label9.Size = new Size(90, 15);
             label9.TabIndex = 303;
@@ -374,7 +391,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(352, 72);
+            label8.Location = new Point(360, 89);
             label8.Name = "label8";
             label8.Size = new Size(168, 15);
             label8.TabIndex = 302;
@@ -382,7 +399,7 @@
             // 
             // certificateofregistrationtextbox
             // 
-            certificateofregistrationtextbox.Location = new Point(252, 90);
+            certificateofregistrationtextbox.Location = new Point(260, 107);
             certificateofregistrationtextbox.Name = "certificateofregistrationtextbox";
             certificateofregistrationtextbox.Size = new Size(101, 23);
             certificateofregistrationtextbox.TabIndex = 301;
@@ -390,7 +407,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(284, 72);
+            label7.Location = new Point(292, 89);
             label7.Name = "label7";
             label7.Size = new Size(29, 15);
             label7.TabIndex = 300;
@@ -398,7 +415,7 @@
             // 
             // addresstextbox
             // 
-            addresstextbox.Location = new Point(138, 90);
+            addresstextbox.Location = new Point(146, 107);
             addresstextbox.Name = "addresstextbox";
             addresstextbox.Size = new Size(100, 23);
             addresstextbox.TabIndex = 299;
@@ -406,7 +423,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(169, 72);
+            label6.Location = new Point(177, 89);
             label6.Name = "label6";
             label6.Size = new Size(40, 15);
             label6.TabIndex = 298;
@@ -415,7 +432,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(46, 72);
+            label5.Location = new Point(54, 89);
             label5.Name = "label5";
             label5.Size = new Size(55, 15);
             label5.TabIndex = 297;
@@ -423,7 +440,7 @@
             // 
             // phonetextbox
             // 
-            phonetextbox.Location = new Point(32, 90);
+            phonetextbox.Location = new Point(40, 107);
             phonetextbox.Name = "phonetextbox";
             phonetextbox.Size = new Size(100, 23);
             phonetextbox.TabIndex = 296;
@@ -431,7 +448,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(384, 28);
+            label4.Location = new Point(392, 45);
             label4.Name = "label4";
             label4.Size = new Size(54, 15);
             label4.TabIndex = 295;
@@ -439,7 +456,7 @@
             // 
             // passportnumbertextbox
             // 
-            passportnumbertextbox.Location = new Point(369, 46);
+            passportnumbertextbox.Location = new Point(377, 63);
             passportnumbertextbox.Name = "passportnumbertextbox";
             passportnumbertextbox.Size = new Size(100, 23);
             passportnumbertextbox.TabIndex = 294;
@@ -447,7 +464,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(274, 28);
+            label3.Location = new Point(282, 45);
             label3.Name = "label3";
             label3.Size = new Size(58, 15);
             label3.TabIndex = 293;
@@ -455,14 +472,14 @@
             // 
             // middlenametextbox
             // 
-            middlenametextbox.Location = new Point(253, 46);
+            middlenametextbox.Location = new Point(261, 63);
             middlenametextbox.Name = "middlenametextbox";
             middlenametextbox.Size = new Size(100, 23);
             middlenametextbox.TabIndex = 292;
             // 
             // firstnametextbox
             // 
-            firstnametextbox.Location = new Point(147, 46);
+            firstnametextbox.Location = new Point(155, 63);
             firstnametextbox.Name = "firstnametextbox";
             firstnametextbox.Size = new Size(100, 23);
             firstnametextbox.TabIndex = 291;
@@ -470,7 +487,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(181, 28);
+            label2.Location = new Point(189, 45);
             label2.Name = "label2";
             label2.Size = new Size(31, 15);
             label2.TabIndex = 290;
@@ -479,7 +496,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(46, 28);
+            label1.Location = new Point(54, 45);
             label1.Name = "label1";
             label1.Size = new Size(58, 15);
             label1.TabIndex = 289;
@@ -487,30 +504,29 @@
             // 
             // driverDateOfBirthPicker
             // 
-            driverDateOfBirthPicker.Location = new Point(147, 149);
+            driverDateOfBirthPicker.Location = new Point(155, 166);
             driverDateOfBirthPicker.Name = "driverDateOfBirthPicker";
             driverDateOfBirthPicker.Size = new Size(224, 23);
             driverDateOfBirthPicker.TabIndex = 288;
             // 
             // driverLicenseTextBox
             // 
-            driverLicenseTextBox.Location = new Point(369, 90);
+            driverLicenseTextBox.Location = new Point(377, 107);
             driverLicenseTextBox.Name = "driverLicenseTextBox";
             driverLicenseTextBox.Size = new Size(109, 23);
             driverLicenseTextBox.TabIndex = 287;
             // 
             // SurnameTextBox
             // 
-            SurnameTextBox.Location = new Point(32, 46);
+            SurnameTextBox.Location = new Point(40, 63);
             SurnameTextBox.Name = "SurnameTextBox";
             SurnameTextBox.Size = new Size(109, 23);
             SurnameTextBox.TabIndex = 286;
-            SurnameTextBox.Text = " ";
             // 
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(421, 241);
+            label19.Location = new Point(429, 258);
             label19.Name = "label19";
             label19.Size = new Size(34, 15);
             label19.TabIndex = 317;
@@ -519,7 +535,7 @@
             // label33
             // 
             label33.AutoSize = true;
-            label33.Location = new Point(219, 244);
+            label33.Location = new Point(227, 261);
             label33.Name = "label33";
             label33.Size = new Size(147, 15);
             label33.TabIndex = 315;
@@ -527,14 +543,14 @@
             // 
             // StrahovkaTextBox
             // 
-            StrahovkaTextBox.Location = new Point(240, 259);
+            StrahovkaTextBox.Location = new Point(248, 276);
             StrahovkaTextBox.Name = "StrahovkaTextBox";
             StrahovkaTextBox.Size = new Size(107, 23);
             StrahovkaTextBox.TabIndex = 314;
             // 
             // OwnerTextBox
             // 
-            OwnerTextBox.Location = new Point(383, 259);
+            OwnerTextBox.Location = new Point(391, 276);
             OwnerTextBox.Name = "OwnerTextBox";
             OwnerTextBox.ReadOnly = true;
             OwnerTextBox.Size = new Size(109, 23);
@@ -544,7 +560,7 @@
             // Марка
             // 
             Марка.AutoSize = true;
-            Марка.Location = new Point(74, 200);
+            Марка.Location = new Point(82, 217);
             Марка.Name = "Марка";
             Марка.Size = new Size(43, 15);
             Марка.TabIndex = 313;
@@ -553,7 +569,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(195, 200);
+            label14.Location = new Point(203, 217);
             label14.Name = "label14";
             label14.Size = new Size(50, 15);
             label14.TabIndex = 312;
@@ -562,7 +578,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(298, 200);
+            label13.Location = new Point(306, 217);
             label13.Name = "label13";
             label13.Size = new Size(68, 15);
             label13.TabIndex = 311;
@@ -571,7 +587,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(398, 200);
+            label12.Location = new Point(406, 217);
             label12.Name = "label12";
             label12.Size = new Size(102, 15);
             label12.TabIndex = 310;
@@ -579,28 +595,28 @@
             // 
             // ModeltextBox
             // 
-            ModeltextBox.Location = new Point(161, 218);
+            ModeltextBox.Location = new Point(169, 235);
             ModeltextBox.Name = "ModeltextBox";
             ModeltextBox.Size = new Size(109, 23);
             ModeltextBox.TabIndex = 309;
             // 
             // PlatetextBox
             // 
-            PlatetextBox.Location = new Point(276, 218);
+            PlatetextBox.Location = new Point(284, 235);
             PlatetextBox.Name = "PlatetextBox";
             PlatetextBox.Size = new Size(109, 23);
             PlatetextBox.TabIndex = 308;
             // 
             // yeartextBox
             // 
-            yeartextBox.Location = new Point(391, 218);
+            yeartextBox.Location = new Point(399, 235);
             yeartextBox.Name = "yeartextBox";
             yeartextBox.Size = new Size(109, 23);
             yeartextBox.TabIndex = 307;
             // 
             // STStextBox
             // 
-            STStextBox.Location = new Point(126, 259);
+            STStextBox.Location = new Point(134, 276);
             STStextBox.Name = "STStextBox";
             STStextBox.Size = new Size(101, 23);
             STStextBox.TabIndex = 306;
@@ -608,7 +624,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(160, 241);
+            label10.Location = new Point(168, 258);
             label10.Name = "label10";
             label10.Size = new Size(29, 15);
             label10.TabIndex = 305;
@@ -616,7 +632,7 @@
             // 
             // MakeTextBox
             // 
-            MakeTextBox.Location = new Point(46, 218);
+            MakeTextBox.Location = new Point(54, 235);
             MakeTextBox.Name = "MakeTextBox";
             MakeTextBox.Size = new Size(109, 23);
             MakeTextBox.TabIndex = 304;
@@ -651,28 +667,22 @@
             выходToolStripMenuItem.Text = "Выход";
             выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
             // 
-            // label36
+            // checkBox1
             // 
-            label36.AutoSize = true;
-            label36.Location = new Point(395, 24);
-            label36.Name = "label36";
-            label36.Size = new Size(90, 15);
-            label36.TabIndex = 266;
-            label36.Text = "Статус штрафа";
-            // 
-            // statuscomboBox
-            // 
-            statuscomboBox.FormattingEnabled = true;
-            statuscomboBox.Location = new Point(391, 42);
-            statuscomboBox.Name = "statuscomboBox";
-            statuscomboBox.Size = new Size(109, 23);
-            statuscomboBox.TabIndex = 265;
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(6, 23);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(129, 19);
+            checkBox1.TabIndex = 319;
+            checkBox1.Text = "Использовать дату";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // User
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1409, 575);
+            Controls.Add(checkBox1);
             Controls.Add(label19);
             Controls.Add(label33);
             Controls.Add(StrahovkaTextBox);
@@ -794,5 +804,6 @@
         private ToolStripMenuItem выходToolStripMenuItem;
         private Label label36;
         private ComboBox statuscomboBox;
+        private CheckBox checkBox1;
     }
 }

@@ -18,12 +18,10 @@ namespace WinFormsApp5
         {
             InitializeComponent();
             this.FormClosing += new FormClosingEventHandler(Form2_FormClosing);
+            passwordTextBox.PasswordChar = '*';
         }
 
-        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Application.Exit(); // Завершить приложение при закрытии Form2
-        }
+        
         private void button1_Click(object sender, EventArgs e)
         {
             string userName = userNameTextBox.Text;
@@ -51,6 +49,10 @@ namespace WinFormsApp5
                 MessageBox.Show("Неверный логин или пароль.");
             }
 
+        }
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit(); // Завершить приложение при закрытии Form2
         }
         private void GoBackToForm1()
         {
